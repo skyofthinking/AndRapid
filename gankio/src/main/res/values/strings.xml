@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Gankio</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Menu -->
+    <string name="action_home">最新</string>
+    <string name="action_category">分类</string>
+    <string name="action_history">历史</string>
+    <string name="action_settings">设置</string>
+    <string name="action_aboutme">关于</string>
+
+</resources>
