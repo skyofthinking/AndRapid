@@ -1,0 +1,87 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Test
+    testCompile rootProject.ext.dependencies["junit"]
+
+    // Android
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+    compile rootProject.ext.dependencies["design"]
+
+    // Image
+    compile rootProject.ext.dependencies["glide"]
+
+    // Rx
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
+
+    // Squareup HTTP
+    compile rootProject.ext.dependencies["retrofit"]
+    compile rootProject.ext.dependencies["retrofit-converter-gson"]
+    compile rootProject.ext.dependencies["retrofit-adapter-rxjava"]
+    compile rootProject.ext.dependencies["rxcache"]
+    compile rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    compile rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+    compile rootProject.ext.dependencies["okhttp3-urlconnection"]
+
+    // DI
+    compile rootProject.ext.dependencies["butterknife"]
+    // annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    apt rootProject.ext.dependencies["butterknife-apt-compiler"]
+
+    // Log
+    compile rootProject.ext.dependencies["orhanobut-logger"]
+
+    // Widget
+    compile rootProject.ext.dependencies["jiecaovideoplayer"]
+    compile rootProject.ext.dependencies["springview"]
+    compile rootProject.ext.dependencies["smarttablayout"]
+    compile rootProject.ext.dependencies["smarttablayout-utils-v4"]
+    compile rootProject.ext.dependencies["baserecyclerviewadapterhelper"]
+    compile rootProject.ext.dependencies["recovery"]
+    compile rootProject.ext.dependencies["progress-activity"]
+
+    // Icon
+    compile rootProject.ext.dependencies["iconics-core"]
+    compile rootProject.ext.dependencies["google-material-typeface"]
+}

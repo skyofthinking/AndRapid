@@ -1,0 +1,60 @@
+<resources>
+    <dimen name="divider_height">5dp</dimen>
+
+    <dimen name="margin1">1dp</dimen>
+    <dimen name="margin2">2dp</dimen>
+    <dimen name="margin3">3dp</dimen>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin12">12dp</dimen>
+    <dimen name="margin15">15dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin40">40dp</dimen>
+    <dimen name="margin50">50dp</dimen>
+    <dimen name="margin60">60dp</dimen>
+    <dimen name="margin70">70dp</dimen>
+    <dimen name="margin80">80dp</dimen>
+    <dimen name="margin120">120dp</dimen>
+    <dimen name="margin140">140dp</dimen>
+
+    <dimen name="padding1">1dp</dimen>
+    <dimen name="padding2">2dp</dimen>
+    <dimen name="padding3">3dp</dimen>
+    <dimen name="padding5">5dp</dimen>
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding12">12dp</dimen>
+    <dimen name="padding15">15dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding30">30dp</dimen>
+    <dimen name="padding40">40dp</dimen>
+    <dimen name="padding50">50dp</dimen>
+    <dimen name="padding60">60dp</dimen>
+    <dimen name="padding70">70dp</dimen>
+    <dimen name="padding80">80dp</dimen>
+    <dimen name="padding120">120dp</dimen>
+    <dimen name="padding140">140dp</dimen>
+
+    <dimen name="textSize12">12sp</dimen>
+    <dimen name="textSize13">13sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
+    <dimen name="textSize15">15sp</dimen>
+    <dimen name="textSize16">16sp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize20">20sp</dimen>
+
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">18sp</dimen>
+
+    <dimen name="pager_nav_item_text">14sp</dimen>
+    <dimen name="item_title">16sp</dimen>
+    <dimen name="item_content">14sp</dimen>
+    <dimen name="item_time">12sp</dimen>
+    <item name="standard_alpha" format="float" type="dimen">0.84</item>
+    <item name="secondary_alpha" format="float" type="dimen">0.54</item>
+</resources>
