@@ -34,10 +34,11 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea/
 
 # Keystore files
 *.jks
 
 # Custom
 sign.properties
+.DS_Store
