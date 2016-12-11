@@ -22,19 +22,36 @@ public abstract class RapidFragment extends Fragment {
     public Context mContext;
     public FragmentActivity mActivity;
     public Resources resources;
-    public View rootView;
+    public View rootView = null;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(getLayoutId(), container, false);
-        
+        boolean isInitView = false;
+
+        if (rootView == null) {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+
+            isInitView = true;
+        }
+
+        // 缓存的rootView需要判断是否已经被加过parent，
+        // 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
+        }
+
         mContext = getActivity();
         mActivity = getActivity();
         resources = mContext.getResources();
-        
+
         unbinder = ButterKnife.bind(this, rootView);
-        initView(rootView);
+
+        if (isInitView) {
+            initView(rootView);
+        }
+
         return rootView;
     }
 

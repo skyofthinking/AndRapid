@@ -1,6 +1,5 @@
 package com.joyue.tech.gankio.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, CategoryContract.View {
+public class BenefitFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, CategoryContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
@@ -34,7 +33,7 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
     BaseQuickAdapter mQuickAdapter;
 
     CategoryContract.Presenter present;
-    String category = "all";
+    String category = "福利";
     int page = 1;
     int count = 10;
 
@@ -45,11 +44,6 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
 
     @Override
     public void initView(View rootView) {
-        page = 1;
-
-        Bundle bundle = getArguments();
-        category = bundle.getString("category");
-
         //设置下拉刷新监听
         springView.setListener(this);
         //设置下拉刷新样式

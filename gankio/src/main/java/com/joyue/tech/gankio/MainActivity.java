@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.joyue.tech.core.base.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
+import com.joyue.tech.gankio.ui.fragment.AenefitFragment;
 import com.joyue.tech.gankio.ui.fragment.CategoryFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
 
@@ -98,6 +99,8 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
             replaceFragment(HomeFragment.class);
         } else if (id == R.id.nav_category) {
             replaceFragment(CategoryFragment.class);
+        }  else if (id == R.id.nav_gift) {
+            replaceFragment(AenefitFragment.class);
         } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_settings) {

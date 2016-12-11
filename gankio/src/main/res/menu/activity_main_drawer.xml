@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_category_black_24px"
             android:title="@string/action_category"/>
         <item
+            android:id="@+id/nav_gift"
+            android:icon="@drawable/ic_benefit_black_24px"
+            android:title="@string/action_benefit"/>
+        <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history_black_24px"
             android:title="@string/action_history"/>
