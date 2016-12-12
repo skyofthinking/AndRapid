@@ -2,7 +2,7 @@ package com.joyue.tech.gankio.ui.fragment;
 
 import android.os.Bundle;
 
-import com.joyue.tech.core.base.fragment.RapidTabFragment;
+import com.joyue.tech.core.ui.fragment.RapidTabFragment;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.joyue.tech.core.base.fragment.RapidFragment;
+import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.constants.Constant;
 import com.joyue.tech.gankio.domain.Result;

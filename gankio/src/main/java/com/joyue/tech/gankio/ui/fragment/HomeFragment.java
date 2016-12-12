@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.joyue.tech.core.base.fragment.RapidFragment;
+import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.core.utils.ToastUtils;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.api.GankApi;

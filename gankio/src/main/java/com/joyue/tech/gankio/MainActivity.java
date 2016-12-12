@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.joyue.tech.core.base.activity.RapidToolbarActivity;
+import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.gankio.ui.fragment.BenefitFragment;
 import com.joyue.tech.gankio.ui.fragment.CategoryFragment;
