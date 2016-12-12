@@ -1,4 +1,4 @@
-package com.joyue.tech.core.base.activity;
+package com.joyue.tech.core.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

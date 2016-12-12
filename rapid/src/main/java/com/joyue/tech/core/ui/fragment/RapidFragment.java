@@ -1,4 +1,4 @@
-package com.joyue.tech.core.base.fragment;
+package com.joyue.tech.core.ui.fragment;
 
 import android.content.Context;
 import android.content.res.Resources;

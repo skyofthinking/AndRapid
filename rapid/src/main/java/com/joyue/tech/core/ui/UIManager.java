@@ -1,11 +1,11 @@
-package com.joyue.tech.core.base;
+package com.joyue.tech.core.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.joyue.tech.core.RapidApp;
-import com.joyue.tech.core.base.activity.RapidClickButtonActivity;
+import com.joyue.tech.core.ui.activity.RapidClickButtonActivity;
 
 /**
  * @author JiangYH

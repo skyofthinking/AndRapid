@@ -1,4 +1,4 @@
-package com.joyue.tech.core.base.activity;
+package com.joyue.tech.core.ui.activity;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;

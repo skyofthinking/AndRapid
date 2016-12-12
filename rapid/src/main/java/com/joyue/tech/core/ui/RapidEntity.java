@@ -1,4 +1,4 @@
-package com.joyue.tech.core.base;
+package com.joyue.tech.core.ui;
 
 import java.io.Serializable;
 
