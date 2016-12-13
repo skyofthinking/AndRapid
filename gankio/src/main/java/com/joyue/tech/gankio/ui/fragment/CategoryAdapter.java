@@ -11,9 +11,9 @@ import java.util.List;
  * @author JiangYH
  */
 
-public class CategoryViewAdapter extends BaseQuickAdapter<Result> {
+public class CategoryAdapter extends BaseQuickAdapter<Result> {
 
-    public CategoryViewAdapter(int layoutResId, List<Result> data) {
+    public CategoryAdapter(int layoutResId, List<Result> data) {
         super(layoutResId, data);
     }
 

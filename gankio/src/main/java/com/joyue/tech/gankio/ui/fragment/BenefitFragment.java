@@ -60,7 +60,7 @@ public class BenefitFragment extends RapidFragment implements BaseQuickAdapter.R
         progress.showLoading();
 
         //设置适配器
-        mQuickAdapter = new CategoryViewAdapter(R.layout.item_category, null);
+        mQuickAdapter = new BenefitAdapter(R.layout.item_benefit, null);
         //设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         //设置是否自动加载以及加载个数
