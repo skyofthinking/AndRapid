@@ -37,7 +37,7 @@ public class HomeFragment extends RapidFragment {
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // UIManager.startActivityByFragmentName(mContext, CategoryTabFragment.class.getName());
+                // UIManager.startActivityByFragmentName(mContext, GanhuoTabFragment.class.getName());
                 GankApi.getInstance().data("all", 10, 1, new Observer<List<Result>>() {
                     @Override
                     public void onCompleted() {

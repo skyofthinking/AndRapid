@@ -6,19 +6,19 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24px"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/action_home"/>
         <item
             android:id="@+id/nav_category"
-            android:icon="@drawable/ic_category_black_24px"
+            android:icon="@drawable/ic_category_black_24dp"
             android:title="@string/action_category"/>
         <item
             android:id="@+id/nav_gift"
-            android:icon="@drawable/ic_benefit_black_24px"
+            android:icon="@drawable/ic_meizi_black_24dp"
             android:title="@string/action_benefit"/>
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_history_black_24px"
+            android:icon="@drawable/ic_history_black_24dp"
             android:title="@string/action_history"/>
     </group>
 
@@ -26,11 +26,11 @@
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings_black_24px"
+                android:icon="@drawable/ic_settings_black_24dp"
                 android:title="@string/action_settings"/>
             <item
                 android:id="@+id/nav_aboutme"
-                android:icon="@drawable/ic_aboutme_black_24px"
+                android:icon="@drawable/ic_aboutme_black_24dp"
                 android:title="@string/action_aboutme"/>
         </menu>
     </item>

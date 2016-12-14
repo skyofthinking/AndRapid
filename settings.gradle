@@ -1,4 +1,5 @@
 include ':app'
 include ':sample'
 include ':rapid'
+include ':third'
 include ':gankio'

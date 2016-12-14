@@ -24,4 +24,9 @@ public class UIManager {
         activity.startActivityForResult(intent, requestCode);
     }
 
+    public static void startActivity(Context context, Class activityClass) {
+        Intent intent = new Intent(RapidApp.getContext(), activityClass);
+        context.startActivity(intent);
+    }
+
 }

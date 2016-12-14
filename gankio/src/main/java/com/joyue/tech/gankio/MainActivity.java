@@ -13,11 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
-import com.joyue.tech.gankio.ui.fragment.BenefitFragment;
-import com.joyue.tech.gankio.ui.fragment.CategoryFragment;
+import com.joyue.tech.gankio.ui.activity.SettingsActivity;
+import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
+import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
 
 public class MainActivity extends RapidToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -98,13 +100,13 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         if (id == R.id.nav_home) {
             replaceFragment(HomeFragment.class);
         } else if (id == R.id.nav_category) {
-            replaceFragment(CategoryFragment.class);
-        }  else if (id == R.id.nav_gift) {
-            replaceFragment(BenefitFragment.class);
+            replaceFragment(GanhuoFragment.class);
+        } else if (id == R.id.nav_gift) {
+            replaceFragment(MeiziFragment.class);
         } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_settings) {
-
+            UIManager.startActivity(this, SettingsActivity.class);
         } else if (id == R.id.nav_aboutme) {
 
         }

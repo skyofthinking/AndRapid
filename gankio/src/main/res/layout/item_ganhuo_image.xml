@@ -14,13 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="@dimen/padding5">
 
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="雪中悍刀行"/>
+        <ImageView
+            android:id="@+id/iv_meizi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/monkey_nodata"/>
 
     </LinearLayout>
 

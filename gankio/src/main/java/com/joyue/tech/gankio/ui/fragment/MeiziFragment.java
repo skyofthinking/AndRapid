@@ -1,6 +1,5 @@
 package com.joyue.tech.gankio.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,10 +9,11 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
+import com.joyue.tech.gankio.adapter.MeiziAdapter;
 import com.joyue.tech.gankio.constants.Constant;
 import com.joyue.tech.gankio.domain.Result;
-import com.joyue.tech.gankio.mvp.category.CategoryContract;
-import com.joyue.tech.gankio.mvp.category.CategoryPresenterImpl;
+import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
+import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.vlonjatg.progressactivity.ProgressActivity;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, CategoryContract.View {
+public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, GanhuoContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
@@ -33,8 +33,8 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
 
     BaseQuickAdapter mQuickAdapter;
 
-    CategoryContract.Presenter present;
-    String category = "all";
+    GanhuoContract.Presenter present;
+    String category = "福利";
     int page = 1;
     int count = 10;
 
@@ -45,11 +45,6 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
 
     @Override
     public void initView(View rootView) {
-        page = 1;
-
-        Bundle bundle = getArguments();
-        category = bundle.getString("category");
-
         //设置下拉刷新监听
         springView.setListener(this);
         //设置下拉刷新样式
@@ -66,7 +61,7 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
         progress.showLoading();
 
         //设置适配器
-        mQuickAdapter = new CategoryAdapter(R.layout.item_category, null);
+        mQuickAdapter = new MeiziAdapter(R.layout.item_meizi, null);
         //设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         //设置是否自动加载以及加载个数
@@ -75,7 +70,7 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
         mRecyclerView.setAdapter(mQuickAdapter);
 
         //请求网络数据
-        setPresenter(new CategoryPresenterImpl(this));
+        setPresenter(new GanhuoPresenter(this));
         present.data(category, count, page, false);
 
         initListener();
@@ -162,7 +157,7 @@ public class CategoryTabFragment extends RapidFragment implements BaseQuickAdapt
     }
 
     @Override
-    public void setPresenter(CategoryContract.Presenter presenter) {
+    public void setPresenter(GanhuoContract.Presenter presenter) {
         this.present = presenter;
     }
 

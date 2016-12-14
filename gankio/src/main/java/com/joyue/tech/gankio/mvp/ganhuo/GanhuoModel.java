@@ -1,4 +1,4 @@
-package com.joyue.tech.gankio.mvp.category;
+package com.joyue.tech.gankio.mvp.ganhuo;
 
 import com.joyue.tech.core.mvp.listener.OnLoadDataListListener;
 import com.joyue.tech.gankio.api.GankApi;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import rx.Observer;
 
-public class CategoryModelImpl implements CategoryContract.Model {
+public class GanhuoModel implements GanhuoContract.Model {
 
     public void data(String category, int count, int page, final OnLoadDataListListener listener) {
         GankApi.getInstance().data(category, count, page, new Observer<List<Result>>() {
@@ -24,6 +24,13 @@ public class CategoryModelImpl implements CategoryContract.Model {
 
             @Override
             public void onNext(List<Result> data) {
+                for (Result result : data) {
+                    if ("福利".equals(result.getType())) {
+                        result.setItemType(Result.IMG);
+                    } else {
+                        result.setItemType(Result.TEXT);
+                    }
+                }
                 listener.onSuccess(data);
             }
         });

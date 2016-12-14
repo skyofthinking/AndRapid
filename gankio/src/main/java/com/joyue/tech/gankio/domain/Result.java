@@ -1,9 +1,13 @@
 package com.joyue.tech.gankio.domain;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Result extends MultiItemEntity {
+
+    public static final int TEXT = 1;
+    public static final int IMG = 2;
 
     @SerializedName("_id")
     @Expose

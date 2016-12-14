@@ -1,4 +1,4 @@
-package com.joyue.tech.gankio.mvp.category;
+package com.joyue.tech.gankio.mvp.ganhuo;
 
 import com.joyue.tech.core.mvp.listener.OnLoadDataListListener;
 import com.joyue.tech.gankio.domain.Result;
@@ -8,17 +8,16 @@ import java.util.List;
 /**
  * @author JiangYH
  */
-public class CategoryPresenterImpl implements CategoryContract.Presenter, OnLoadDataListListener<List<Result>> {
-    private CategoryContract.View mView;
-    private CategoryContract.Model mModel;
+public class GanhuoPresenter implements GanhuoContract.Presenter, OnLoadDataListListener<List<Result>> {
+    private GanhuoContract.View mView;
+    private GanhuoContract.Model mModel;
     private boolean isLoadMore;
 
-    public CategoryPresenterImpl(CategoryContract.View mView) {
+    public GanhuoPresenter(GanhuoContract.View mView) {
         this.mView = mView;
-        this.mModel = new CategoryModelImpl();
+        this.mModel = new GanhuoModel();
         mView.showProgress();
     }
-
 
     @Override
     public void data(String category, int count, int page, boolean isLoadMore) {

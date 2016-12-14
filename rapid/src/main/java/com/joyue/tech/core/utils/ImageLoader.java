@@ -16,7 +16,7 @@ public class ImageLoader {
     		Glide.with(imageView.getContext())
                 .load(imageUrl)
                 .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(defImageView)
                 .transform(new GlideCircleTransform(imageView.getContext()))
                 .error(defImageView)
@@ -25,7 +25,7 @@ public class ImageLoader {
     		Glide.with(imageView.getContext())
                 .load(imageUrl)
                 .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(defImageView)
                 .error(defImageView)
                 .into(imageView);    		

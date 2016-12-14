@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="@color/bag_gray"
-              tools:context=".ui.fragment.CategoryTabFragment">
+              tools:context=".ui.fragment.GanhuoTabFragment">
 
     <TextView
         android:id="@+id/tv_test2"

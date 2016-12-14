@@ -1,4 +1,4 @@
-package com.joyue.tech.gankio.mvp.category;
+package com.joyue.tech.gankio.mvp.ganhuo;
 
 import com.joyue.tech.core.mvp.BasePresenter;
 import com.joyue.tech.core.mvp.BaseView;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author JiangYH
  */
-public class CategoryContract {
+public class GanhuoContract {
 
     public interface View extends BaseView<Presenter> {
         //加载新数据
