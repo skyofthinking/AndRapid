@@ -26,7 +26,7 @@ public class HomeFragment extends RapidFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_tab;
+        return R.layout.fragment_home;
     }
 
     @Override

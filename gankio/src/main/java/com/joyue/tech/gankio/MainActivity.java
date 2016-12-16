@@ -16,6 +16,7 @@ import android.view.View;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
+import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
 import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
@@ -108,7 +109,7 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         } else if (id == R.id.nav_settings) {
             UIManager.startActivity(this, SettingsActivity.class);
         } else if (id == R.id.nav_aboutme) {
-
+            UIManager.startActivity(this, AboutActivity.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
