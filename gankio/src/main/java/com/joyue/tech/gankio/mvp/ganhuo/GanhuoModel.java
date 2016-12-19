@@ -4,6 +4,7 @@ import com.joyue.tech.core.mvp.listener.OnLoadDataListListener;
 import com.joyue.tech.gankio.api.GankApi;
 import com.joyue.tech.gankio.domain.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observer;
@@ -32,6 +33,28 @@ public class GanhuoModel implements GanhuoContract.Model {
                     }
                 }
                 listener.onSuccess(data);
+            }
+        });
+    }
+
+    @Override
+    public void day(String year, String month, String day, OnLoadDataListListener listener) {
+        GankApi.getInstance().day(year, month, day, new Observer<Result>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                //设置页面为加载错误
+                listener.onFailure(e);
+            }
+
+            @Override
+            public void onNext(Result data) {
+                List newList = new ArrayList();
+                newList.add(data);
+                listener.onSuccess(newList);
             }
         });
     }

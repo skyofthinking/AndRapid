@@ -43,7 +43,9 @@ public class RapidClickButtonActivity extends RapidToolbarActivity {
         // 根据传递过来的不同的资源id值设置不同的fragment
         mFragmentManager = getSupportFragmentManager();
 
-        FragmentUtils.replaceFragment(mFragmentManager, R.id.frame_container, Fragment.instantiate(this, fragmentName, intent.getExtras()).getClass(), new Bundle(), false);
+        Bundle bundle = intent.getExtras();
+
+        FragmentUtils.replaceFragment(mFragmentManager, R.id.frame_container, Fragment.instantiate(this, fragmentName, intent.getExtras()).getClass(), bundle, false);
     }
 
 

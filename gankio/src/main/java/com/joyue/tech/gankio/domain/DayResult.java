@@ -4,9 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class Result extends MultiItemEntity {
+public class DayResult extends MultiItemEntity {
 
     public static final int TEXT = 1;
     public static final int IMG = 2;
@@ -163,94 +161,5 @@ public class Result extends MultiItemEntity {
      */
     public void setWho(String who) {
         this.who = who;
-    }
-
-    @SerializedName("Android")
-    @Expose
-    private List<DayResult> android = null;
-    @SerializedName("iOS")
-    @Expose
-    private List<DayResult> ios = null;
-    @SerializedName("休息视频")
-    @Expose
-    private List<DayResult> video = null;
-    @SerializedName("福利")
-    @Expose
-    private List<DayResult> meizi = null;
-    @SerializedName("拓展资源")
-    @Expose
-    private List<DayResult> expandres = null;
-    @SerializedName("前端")
-    @Expose
-    private List<DayResult> frontend = null;
-    @SerializedName("瞎推荐")
-    @Expose
-    private List<DayResult> recommend = null;
-    @SerializedName("App")
-    @Expose
-    private List<DayResult> app = null;
-
-    public List<DayResult> getAndroid() {
-        return android;
-    }
-
-    public void setAndroid(List<DayResult> android) {
-        this.android = android;
-    }
-
-    public List<DayResult> getIos() {
-        return ios;
-    }
-
-    public void setIos(List<DayResult> ios) {
-        this.ios = ios;
-    }
-
-    public List<DayResult> getVideo() {
-        return video;
-    }
-
-    public void setVideo(List<DayResult> video) {
-        this.video = video;
-    }
-
-    public List<DayResult> getMeizi() {
-        return meizi;
-    }
-
-    public void setMeizi(List<DayResult> meizi) {
-        this.meizi = meizi;
-    }
-
-    public List<DayResult> getExpandres() {
-        return expandres;
-    }
-
-    public void setExpandres(List<DayResult> expandres) {
-        this.expandres = expandres;
-    }
-
-    public List<DayResult> getFrontend() {
-        return frontend;
-    }
-
-    public void setFrontend(List<DayResult> frontend) {
-        this.frontend = frontend;
-    }
-
-    public List<DayResult> getRecommend() {
-        return recommend;
-    }
-
-    public void setRecommend(List<DayResult> recommend) {
-        this.recommend = recommend;
-    }
-
-    public List<DayResult> getApp() {
-        return app;
-    }
-
-    public void setApp(List<DayResult> app) {
-        this.app = app;
     }
 }

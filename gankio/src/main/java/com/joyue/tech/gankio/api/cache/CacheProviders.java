@@ -24,7 +24,19 @@ import rx.Observable;
  */
 public interface CacheProviders {
 
-    // 缓存时间 1天
+    // 缓存时间 7天
     @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
     Observable<Reply<List<Result>>> data(Observable<List<Result>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    // 缓存时间 1天
+    @LifeCache(duration = 1, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<String[]>> history(Observable<String[]> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    // 缓存时间 7天
+    @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<Result>> day(Observable<Result> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
+
+    // 缓存时间 7天
+    @LifeCache(duration = 7, timeUnit = TimeUnit.DAYS)
+    Observable<Reply<List<Result>>> common(Observable<List<Result>> oRepos, DynamicKey userName, EvictDynamicKey evictDynamicKey);
 }

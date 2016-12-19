@@ -19,6 +19,7 @@ import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
 import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
+import com.joyue.tech.gankio.ui.fragment.HistoryFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
 import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
 
@@ -105,7 +106,7 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         } else if (id == R.id.nav_gift) {
             replaceFragment(MeiziFragment.class);
         } else if (id == R.id.nav_history) {
-
+            replaceFragment(HistoryFragment.class);
         } else if (id == R.id.nav_settings) {
             UIManager.startActivity(this, SettingsActivity.class);
         } else if (id == R.id.nav_aboutme) {

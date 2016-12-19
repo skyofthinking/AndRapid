@@ -65,7 +65,7 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
         //设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         //设置是否自动加载以及加载个数
-        mQuickAdapter.openLoadMore(6, true);
+        mQuickAdapter.openLoadMore(10, true);
         //将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
 

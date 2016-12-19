@@ -22,4 +22,12 @@ public class BaseConstant {
         public static String EMPTY_CONTEXT = "换个条件试试";
     }
 
+
+    public static final class Column {
+        private Column() {
+        }
+
+        public static int TWO = 2;
+    }
+
 }

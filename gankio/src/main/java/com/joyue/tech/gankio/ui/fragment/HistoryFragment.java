@@ -1,20 +1,21 @@
 package com.joyue.tech.gankio.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.joyue.tech.core.constant.BaseConstant;
+import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
-import com.joyue.tech.gankio.adapter.GanHuoAdapter;
+import com.joyue.tech.gankio.adapter.HistoryAdapter;
 import com.joyue.tech.gankio.constants.Constant;
-import com.joyue.tech.gankio.domain.Result;
-import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
-import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
+import com.joyue.tech.gankio.mvp.history.HistoryContract;
+import com.joyue.tech.gankio.mvp.history.HistoryPresenter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.vlonjatg.progressactivity.ProgressActivity;
@@ -23,7 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, GanhuoContract.View {
+public class HistoryFragment extends RapidFragment implements SpringView.OnFreshListener, HistoryContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
@@ -34,10 +35,7 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
 
     BaseQuickAdapter mQuickAdapter;
 
-    GanhuoContract.Presenter present;
-    String category = "all";
-    int page = 1;
-    int count = 10;
+    HistoryContract.Presenter present;
 
     @Override
     public int getLayoutId() {
@@ -46,10 +44,7 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
 
     @Override
     public void initView(View rootView) {
-        page = 1;
-
         Bundle bundle = getArguments();
-        category = bundle.getString("category");
 
         //设置下拉刷新监听
         springView.setListener(this);
@@ -58,8 +53,8 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         springView.setHeader(new DefaultHeader(mContext));
         //springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
 
-        //设置RecyclerView的显示模式 当前List模式
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        //与ListView唯一的区别就是这里new GridLayoutManager(this,2) 数字代表列数
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, BaseConstant.Column.TWO));
         //如果Item高度固定 增加该属性能够提高效率
         mRecyclerView.setHasFixedSize(true);
 
@@ -67,29 +62,30 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         progress.showLoading();
 
         //设置适配器
-        mQuickAdapter = new GanHuoAdapter(mContext, null);
+        mQuickAdapter = new HistoryAdapter(R.layout.item_history, null);
         //设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         //设置是否自动加载以及加载个数
-        mQuickAdapter.openLoadMore(10, true);
+        mQuickAdapter.openLoadMore(false);
         //将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
 
         //请求网络数据
-        setPresenter(new GanhuoPresenter(this));
-        present.data(category, count, page, false);
+        setPresenter(new HistoryPresenter(this));
+        present.history();
 
         initListener();
     }
 
     private void initListener() {
-        //设置自动加载监听
-        mQuickAdapter.setOnLoadMoreListener(this);
-
         mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
+                String date = (String) mQuickAdapter.getData().get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("date", date);
+                UIManager.startActivityByFragmentName(mContext, ContentFragment.class.getName(), bundle);
             }
         });
         mQuickAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
@@ -101,23 +97,16 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         });
     }
 
-    //自动加载
     @Override
-    public void onLoadMoreRequested() {
-        page++;
-        present.data(category, count, page, true);
+    public void newDatas(List newList) {
+        // 进入显示的初始数据或者下拉刷新显示的数据
+        mQuickAdapter.setNewData(newList); // 新增数据
+        mQuickAdapter.openLoadMore(false); // 设置是否可以下拉加载以及加载条数
+        springView.onFinishFreshAndLoad(); // 刷新完成
     }
 
     @Override
-    public void newDatas(List<Result> newList) {
-        //进入显示的初始数据或者下拉刷新显示的数据
-        mQuickAdapter.setNewData(newList);//新增数据
-        mQuickAdapter.openLoadMore(10, true);//设置是否可以下拉加载以及加载条数
-        springView.onFinishFreshAndLoad();//刷新完成
-    }
-
-    @Override
-    public void addDatas(List<Result> addList) {
+    public void addDatas(List addList) {
         //新增自动加载的的数据
         mQuickAdapter.notifyDataChangedAfterLoadMore(addList, true);
     }
@@ -149,8 +138,7 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         progress.showError(getResources().getDrawable(R.mipmap.monkey_cry), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                page = 1;
-                present.data(category, count, page, false);
+                present.history();
             }
         });
     }
@@ -162,15 +150,14 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
     }
 
     @Override
-    public void setPresenter(GanhuoContract.Presenter presenter) {
+    public void setPresenter(HistoryContract.Presenter presenter) {
         this.present = presenter;
     }
 
     //下拉刷新
     @Override
     public void onRefresh() {
-        page = 1;
-        present.data(category, count, page, false);
+        present.history();
     }
 
     // 上拉加载 mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用

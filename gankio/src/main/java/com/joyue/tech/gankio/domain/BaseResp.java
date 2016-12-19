@@ -14,6 +14,9 @@ public class BaseResp<T>  {
     @SerializedName("results")
     @Expose
     private T results = null;
+    @SerializedName("category")
+    @Expose
+    private String[] category;
 
     /**
      * @return The error
@@ -35,5 +38,13 @@ public class BaseResp<T>  {
 
     public void setResults(T results) {
         this.results = results;
+    }
+
+    public String[] getCategory() {
+        return category;
+    }
+
+    public void setCategory(String[] category) {
+        this.category = category;
     }
 }

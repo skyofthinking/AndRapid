@@ -35,4 +35,16 @@ public class GankApi extends BaseApi {
         Observable observableCahce = providers.data(observable, new DynamicKey(category + count + page), new EvictDynamicKey(false)).map(new BaseApi.HttpResultFuncRxCache<List<Result>>());
         setSubscribe(observableCahce, observer);
     }
+
+    public void history(Observer<String[]> observer) {
+        Observable observable = service.history().map(new GankApi.HttpResultFunc<String[]>());
+        Observable observableCahce = providers.history(observable, new DynamicKey("history"), new EvictDynamicKey(false)).map(new BaseApi.HttpResultFuncRxCache<String[]>());
+        setSubscribe(observableCahce, observer);
+    }
+
+    public void day(String year, String month, String day, Observer<Result> observer) {
+        Observable observable = service.day(year, month, day).map(new GankApi.HttpResultFunc<Result>());
+        Observable observableCahce = providers.day(observable, new DynamicKey("day" + year + month + day), new EvictDynamicKey(false)).map(new BaseApi.HttpResultFuncRxCache<Result>());
+        setSubscribe(observableCahce, observer);
+    }
 }

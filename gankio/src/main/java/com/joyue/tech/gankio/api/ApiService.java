@@ -23,8 +23,8 @@ public interface ApiService {
     Observable<BaseResp<List<Result>>> date(@Path("category") String category, @Path("count") int count, @Path("page") int page);
 
     // 每日数据
-    @GET("api/data/{year}/{month}/{day}")
-    Observable<BaseResp<List<Result>>> date(@Path("year") String year, @Path("month") String month, @Path("day") String day);
+    @GET("api/day/{year}/{month}/{day}")
+    Observable<BaseResp<Result>> day(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 
     // 搜索 API
     @GET("api/search/query/listview/category/{category}/count/{count}/page/{page}")
@@ -39,8 +39,8 @@ public interface ApiService {
     Observable<BaseResp<List<Result>>> history(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 
     // 获取发过干货日期
-    @GET("api/history")
-    Observable<BaseResp<List<Result>>> history();
+    @GET("api/day/history")
+    Observable<BaseResp<String[]>> history();
 
     // 随机数据
     @GET("api/random/data/{category}/{count}")

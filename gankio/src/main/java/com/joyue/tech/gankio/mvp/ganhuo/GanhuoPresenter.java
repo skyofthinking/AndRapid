@@ -26,12 +26,18 @@ public class GanhuoPresenter implements GanhuoContract.Presenter, OnLoadDataList
     }
 
     @Override
+    public void day(String year, String month, String day) {
+        this.isLoadMore = false;
+        mModel.day(year, month, day, this);
+    }
+
+    @Override
     public void onSuccess(List<Result> data) {
         if (isLoadMore) {
             if (data.size() == 0) {
                 mView.showLoadCompleteAllData();
             } else {
-                //新增自动加载的的数据
+                // 新增自动加载的的数据
                 mView.addDatas(data);
             }
         } else {
