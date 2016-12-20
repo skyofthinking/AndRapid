@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_gift"
             android:icon="@drawable/ic_meizi_black_24dp"
-            android:title="@string/action_benefit"/>
+            android:title="@string/action_meizi"/>
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history_black_24dp"

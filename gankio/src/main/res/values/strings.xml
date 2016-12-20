@@ -7,7 +7,7 @@
     <!-- Menu -->
     <string name="action_home">最新</string>
     <string name="action_category">分类</string>
-    <string name="action_benefit">福利</string>
+    <string name="action_meizi">福利</string>
     <string name="action_history">历史</string>
     <string name="action_settings">设置</string>
     <string name="action_aboutme">关于</string>

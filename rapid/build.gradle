@@ -81,6 +81,7 @@ dependencies {
     compile rootProject.ext.dependencies["baserecyclerviewadapterhelper"]
     compile rootProject.ext.dependencies["recovery"]
     compile rootProject.ext.dependencies["progress-activity"]
+    compile rootProject.ext.dependencies["loadinglayout"]
 
     // Icon
     compile rootProject.ext.dependencies["iconics-core"]

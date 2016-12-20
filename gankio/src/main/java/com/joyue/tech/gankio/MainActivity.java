@@ -16,12 +16,15 @@ import android.view.View;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
+import com.joyue.tech.core.utils.SPUtils;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
 import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HistoryFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
 import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
+
+import java.text.SimpleDateFormat;
 
 public class MainActivity extends RapidToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -100,7 +103,11 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            replaceFragment(HomeFragment.class);
+            String date = SPUtils.getString("def_day_date");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            Bundle bundle = new Bundle();
+            bundle.putString("date", date);
+            replaceFragment(HomeFragment.class, bundle);
         } else if (id == R.id.nav_category) {
             replaceFragment(GanhuoFragment.class);
         } else if (id == R.id.nav_gift) {
@@ -120,6 +127,10 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
 
     private void replaceFragment(Class<? extends Fragment> newFragment) {
         mCurrentFragment = FragmentUtils.switchFragment(mFragmentManager, R.id.frame_container, mCurrentFragment, newFragment, new Bundle(), false);
+    }
+
+    private void replaceFragment(Class<? extends Fragment> newFragment, Bundle bundle) {
+        mCurrentFragment = FragmentUtils.switchFragment(mFragmentManager, R.id.frame_container, mCurrentFragment, newFragment, bundle, false);
     }
 
 }

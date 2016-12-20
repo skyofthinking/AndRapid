@@ -6,7 +6,7 @@ package com.joyue.tech.core.http;
 public class HttpConst {
 
     // 请求URL
-    public String baseUrl = "http://127.0.0.1/";
+    public String baseUrl = "";
     public long connectTimeout = 30;
     public long readTimeout = 30;
     public long writeTimeout = 30;

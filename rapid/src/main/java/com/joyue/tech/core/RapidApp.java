@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.os.StrictMode;
 
 import com.joyue.tech.core.http.HttpConst;
+import com.joyue.tech.core.utils.SPUtils;
 import com.mikepenz.iconics.Iconics;
 
 import java.util.ArrayList;
@@ -40,8 +41,11 @@ public class RapidApp extends Application {
         // 异常恢复
         initRecovery();
 
+        // 加载中、无网络、无数据、出错
+        initLoading();
+
         // 初始化配置
-        // SPUtils.init(this);
+        SPUtils.init(this);
 
         // 初始话日志
         initLog();
@@ -73,6 +77,10 @@ public class RapidApp extends Application {
 
     }
 
+    public void initLoading() {
+
+    }
+
     public void initException() {
         // CrashHandler crashHandler = CrashHandler.getInstance();
         // 注册crashHandler
@@ -89,7 +97,7 @@ public class RapidApp extends Application {
     }
 
     public void initHttp() {
-        mHttpConst.setBaseUrl("http://mylance.top");
+        mHttpConst.setBaseUrl("");
         mHttpConst.setConnectTimeout(30);
         mHttpConst.setReadTimeout(30);
         mHttpConst.setWriteTimeout(30);
