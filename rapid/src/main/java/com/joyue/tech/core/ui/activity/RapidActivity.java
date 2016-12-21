@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,7 +17,7 @@ import butterknife.Unbinder;
  * @author JiangYH
  * @desc 基础的Activity 所有的Activity都要继承这个Activity
  */
-public abstract class RapidActivity extends AppCompatActivity {
+public abstract class RapidActivity extends RxAppCompatActivity {
 
     public String TAG = this.getClass().getSimpleName();
     private Unbinder unbinder;

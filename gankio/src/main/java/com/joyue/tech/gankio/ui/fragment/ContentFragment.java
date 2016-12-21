@@ -72,6 +72,7 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mQuickAdapter.openLoadMore(false);
         //将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
         //请求网络数据
         setPresenter(new GanhuoPresenter(this));
@@ -159,7 +160,7 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         this.present = presenter;
     }
 
-    public static List<ContentSection> convertData(List<Result> data) {
+    public List<ContentSection> convertData(List<Result> data) {
         List<ContentSection> list = new ArrayList<>();
         Result result = data.get(0);
         // Android | iOS | 休息视频 | 福利 | 拓展资源 | 前端 | 瞎推荐 | App
@@ -167,68 +168,33 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         List<DayResult> dayResults = new ArrayList();
 
         dayResults = result.getAndroid();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "Android"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "Android");
 
         dayResults = result.getIos();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "iOS"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "iOS");
 
         dayResults = result.getVideo();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "休息视频"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "休息视频");
 
         dayResults = result.getExpandres();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "拓展资源"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "拓展资源");
 
         dayResults = result.getFrontend();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "前端"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "前端");
 
         dayResults = result.getRecommend();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "瞎推荐"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "瞎推荐");
 
         dayResults = result.getApp();
-        if (dayResults != null && dayResults.size() > 0) {
-            list.add(new ContentSection(true, "App"));
-            for (DayResult dayResult : dayResults) {
-                dayResult.setItemType(DayResult.TEXT);
-                list.add(new ContentSection(dayResult));
-            }
-        }
+        addContentSection(list, dayResults, "App");
 
         return list;
+    }
+
+    public void addContentSection(List csList, List<DayResult> dayResults, String section) {
+        csList.add(new ContentSection(true, section));
+        for (DayResult dayResult : dayResults) {
+            csList.add(new ContentSection(dayResult));
+        }
     }
 }

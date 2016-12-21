@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.constant.BaseConstant;
+import com.joyue.tech.core.rx.Events;
+import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
@@ -16,6 +18,7 @@ import com.joyue.tech.gankio.adapter.HistoryAdapter;
 import com.joyue.tech.gankio.constants.Constant;
 import com.joyue.tech.gankio.mvp.history.HistoryContract;
 import com.joyue.tech.gankio.mvp.history.HistoryPresenter;
+import com.joyue.tech.gankio.rx.EventsWhat;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.vlonjatg.progressactivity.ProgressActivity;
@@ -103,6 +106,11 @@ public class HistoryFragment extends RapidFragment implements SpringView.OnFresh
         mQuickAdapter.setNewData(newList); // 新增数据
         mQuickAdapter.openLoadMore(false); // 设置是否可以下拉加载以及加载条数
         springView.onFinishFreshAndLoad(); // 刷新完成
+
+        String cur_date = "2016-12-19";
+        Events<String> events = Events.just(cur_date);
+        events.what = EventsWhat.USER_LOGIN;
+        RxBus.getInstance().send(events);
     }
 
     @Override

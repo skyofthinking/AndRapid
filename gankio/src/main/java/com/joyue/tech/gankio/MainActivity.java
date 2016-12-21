@@ -13,18 +13,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.joyue.tech.core.rx.Events;
+import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.core.utils.SPUtils;
+import com.joyue.tech.core.utils.ToastUtils;
+import com.joyue.tech.gankio.rx.EventsWhat;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
 import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HistoryFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
 import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
 import java.text.SimpleDateFormat;
+
+import rx.functions.Action1;
 
 public class MainActivity extends RapidToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,6 +51,8 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        initSubscribers();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +113,7 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
 
         if (id == R.id.nav_home) {
             String date = SPUtils.getString("def_day_date");
+            ToastUtils.show("def_day_date: " + date);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
             Bundle bundle = new Bundle();
             bundle.putString("date", date);
@@ -123,6 +133,18 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void initSubscribers() {
+        RxBus.with(this).setEvent(EventsWhat.SET_CUR_DATE).setEndEvent(ActivityEvent.DESTROY).onNext(new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                if (events.what == EventsWhat.SET_CUR_DATE) {
+                    String cur_date = events.getMessage();
+                    SPUtils.put("def_day_date", cur_date);
+                }
+            }
+        }).create();
     }
 
     private void replaceFragment(Class<? extends Fragment> newFragment) {
