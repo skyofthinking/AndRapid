@@ -19,7 +19,6 @@ import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.core.utils.SPUtils;
-import com.joyue.tech.core.utils.ToastUtils;
 import com.joyue.tech.gankio.rx.EventsWhat;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
@@ -30,6 +29,7 @@ import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import rx.functions.Action1;
 
@@ -113,10 +113,9 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
 
         if (id == R.id.nav_home) {
             String date = SPUtils.getString("def_day_date");
-            ToastUtils.show("def_day_date: " + date);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Bundle bundle = new Bundle();
-            bundle.putString("date", date);
+            bundle.putString("date", simpleDateFormat.format(new Date()));
             replaceFragment(HomeFragment.class, bundle);
         } else if (id == R.id.nav_category) {
             replaceFragment(GanhuoFragment.class);

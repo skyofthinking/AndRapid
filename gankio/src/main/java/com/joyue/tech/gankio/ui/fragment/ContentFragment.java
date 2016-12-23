@@ -192,9 +192,11 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
     }
 
     public void addContentSection(List csList, List<DayResult> dayResults, String section) {
-        csList.add(new ContentSection(true, section));
-        for (DayResult dayResult : dayResults) {
-            csList.add(new ContentSection(dayResult));
+        if (dayResults != null && dayResults.size() > 0) {
+            csList.add(new ContentSection(true, section));
+            for (DayResult dayResult : dayResults) {
+                csList.add(new ContentSection(dayResult));
+            }
         }
     }
 }
