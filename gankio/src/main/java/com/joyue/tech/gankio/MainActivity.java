@@ -19,6 +19,9 @@ import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.core.utils.SPUtils;
+import com.joyue.tech.core.utils.StrKit;
+import com.joyue.tech.gankio.mvp.history.HistoryContract;
+import com.joyue.tech.gankio.mvp.history.HistoryPresenter;
 import com.joyue.tech.gankio.rx.EventsWhat;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
@@ -26,17 +29,15 @@ import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HistoryFragment;
 import com.joyue.tech.gankio.ui.fragment.HomeFragment;
 import com.joyue.tech.gankio.ui.fragment.MeiziFragment;
-import com.trello.rxlifecycle.android.ActivityEvent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
-import rx.functions.Action1;
-
-public class MainActivity extends RapidToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends RapidToolbarActivity implements NavigationView.OnNavigationItemSelectedListener, HistoryContract.View {
 
     private FragmentManager mFragmentManager;
     private Fragment mCurrentFragment;
+
+    HistoryContract.Presenter present;
 
     @Override
     public int getLayoutId() {
@@ -51,8 +52,6 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        initSubscribers();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +70,17 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
+
+        // 请求网络数据
+        String def_day_date = SPUtils.getString("def_day_date");
+        setPresenter(new HistoryPresenter(this));
+        if (StrKit.isEmpty(def_day_date)) {
+            present.history();
+        } else {
+            present.history();
+
+            replaceFragment(HomeFragment.class);
+        }
     }
 
     @Override
@@ -108,18 +118,13 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            String date = SPUtils.getString("def_day_date");
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Bundle bundle = new Bundle();
-            bundle.putString("date", simpleDateFormat.format(new Date()));
-            replaceFragment(HomeFragment.class, bundle);
+            replaceFragment(HomeFragment.class);
         } else if (id == R.id.nav_category) {
             replaceFragment(GanhuoFragment.class);
-        } else if (id == R.id.nav_gift) {
+        } else if (id == R.id.nav_meizi) {
             replaceFragment(MeiziFragment.class);
         } else if (id == R.id.nav_history) {
             replaceFragment(HistoryFragment.class);
@@ -134,18 +139,6 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         return true;
     }
 
-    public void initSubscribers() {
-        RxBus.with(this).setEvent(EventsWhat.SET_CUR_DATE).setEndEvent(ActivityEvent.DESTROY).onNext(new Action1<Events<?>>() {
-            @Override
-            public void call(Events<?> events) {
-                if (events.what == EventsWhat.SET_CUR_DATE) {
-                    String cur_date = events.getMessage();
-                    SPUtils.put("def_day_date", cur_date);
-                }
-            }
-        }).create();
-    }
-
     private void replaceFragment(Class<? extends Fragment> newFragment) {
         mCurrentFragment = FragmentUtils.switchFragment(mFragmentManager, R.id.frame_container, mCurrentFragment, newFragment, new Bundle(), false);
     }
@@ -154,4 +147,55 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         mCurrentFragment = FragmentUtils.switchFragment(mFragmentManager, R.id.frame_container, mCurrentFragment, newFragment, bundle, false);
     }
 
+    @Override
+    public void newDatas(List newList) {
+        if (newList != null && newList.size() > 0) {
+            String new_date = (String) newList.get(0);
+            String def_day_date = SPUtils.getString("def_day_date");
+
+            SPUtils.put("def_day_date", new_date);
+
+            if(StrKit.isEmpty(def_day_date)) {
+                replaceFragment(HomeFragment.class);
+            } else if (!new_date.equals(def_day_date)) {
+                SPUtils.put("def_day_date", new_date);
+
+                Events<String> events = Events.just(new_date);
+                events.what = EventsWhat.SET_CUR_DATE;
+                RxBus.getInstance().send(events);
+            }
+        }
+    }
+
+    @Override
+    public void addDatas(List addList) {
+    }
+
+    @Override
+    public void showLoadCompleteAllData() {
+    }
+
+    /**
+     * MVP模式的相关状态
+     */
+    @Override
+    public void showProgress() {
+    }
+
+    @Override
+    public void hideProgress() {
+    }
+
+    @Override
+    public void showLoadFailMsg() {
+    }
+
+    @Override
+    public void showNoData() {
+    }
+
+    @Override
+    public void setPresenter(HistoryContract.Presenter presenter) {
+        this.present = presenter;
+    }
 }

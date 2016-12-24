@@ -1,7 +1,6 @@
 package com.joyue.tech.core.ui.activity;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.view.MotionEvent;
@@ -32,7 +31,7 @@ public abstract class RapidActivity extends RxAppCompatActivity {
         initView(savedInstanceState);
 
         // 方向锁定
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override

@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_category_black_24dp"
             android:title="@string/action_category"/>
         <item
-            android:id="@+id/nav_gift"
+            android:id="@+id/nav_meizi"
             android:icon="@drawable/ic_meizi_black_24dp"
             android:title="@string/action_meizi"/>
         <item

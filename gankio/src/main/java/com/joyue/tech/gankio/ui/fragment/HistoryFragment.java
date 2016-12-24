@@ -13,6 +13,7 @@ import com.joyue.tech.core.rx.Events;
 import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
+import com.joyue.tech.core.utils.SPUtils;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.HistoryAdapter;
 import com.joyue.tech.gankio.mvp.history.HistoryContract;
@@ -106,10 +107,18 @@ public class HistoryFragment extends RapidFragment implements SpringView.OnFresh
         mQuickAdapter.openLoadMore(false); // 设置是否可以下拉加载以及加载条数
         springView.onFinishFreshAndLoad(); // 刷新完成
 
-        String cur_date = "2016-12-19";
-        Events<String> events = Events.just(cur_date);
-        events.what = EventsWhat.USER_LOGIN;
-        RxBus.getInstance().send(events);
+        if (newList != null && newList.size() > 0) {
+            String new_date = (String) newList.get(0);
+
+            String def_day_date = SPUtils.getString("def_day_date");
+            if (!new_date.equals(def_day_date)) {
+                Events<String> events = Events.just(new_date);
+                events.what = EventsWhat.SET_CUR_DATE;
+                RxBus.getInstance().send(events);
+
+                SPUtils.put("def_day_date", new_date);
+            }
+        }
     }
 
     @Override
