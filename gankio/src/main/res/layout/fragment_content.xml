@@ -8,12 +8,13 @@
             android:orientation="vertical"
             tools:context=".ui.fragment.ContentFragment">
 
-    <!--ProgressActivity用于状态页的控制 比如加载中 网络异常 无数据 适合任何页面-->
-    <com.vlonjatg.progressactivity.ProgressActivity
-        android:id="@+id/progress"
-        xmlns:progressActivity="http://schemas.android.com/apk/res-auto"
+    <com.weavey.loading.lib.LoadingLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loadinglayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:isFirstVisible="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
 
         </LinearLayout>
 
-    </com.vlonjatg.progressactivity.ProgressActivity>
+    </com.weavey.loading.lib.LoadingLayout>
 
 </ScrollView>
 

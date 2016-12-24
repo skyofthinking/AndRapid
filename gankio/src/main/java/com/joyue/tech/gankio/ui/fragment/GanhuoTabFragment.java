@@ -11,13 +11,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.GanHuoAdapter;
-import com.joyue.tech.gankio.constants.Constant;
 import com.joyue.tech.gankio.domain.Result;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.vlonjatg.progressactivity.ProgressActivity;
+import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.List;
 
@@ -29,8 +28,8 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
     RecyclerView mRecyclerView;
     @BindView(R.id.springview)
     SpringView springView;
-    @BindView(R.id.progress)
-    ProgressActivity progress;
+    @BindView(R.id.loadinglayout)
+    LoadingLayout loadinglayout;
 
     BaseQuickAdapter mQuickAdapter;
 
@@ -51,31 +50,31 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         Bundle bundle = getArguments();
         category = bundle.getString("category");
 
-        //设置下拉刷新监听
+        // 设置下拉刷新监听
         springView.setListener(this);
-        //设置下拉刷新样式
+        // 设置下拉刷新样式
         springView.setType(SpringView.Type.FOLLOW);
         springView.setHeader(new DefaultHeader(mContext));
-        //springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
+        // springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
 
-        //设置RecyclerView的显示模式 当前List模式
+        // 设置RecyclerView的显示模式 当前List模式
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        //如果Item高度固定 增加该属性能够提高效率
+        // 如果Item高度固定 增加该属性能够提高效率
         mRecyclerView.setHasFixedSize(true);
 
-        //设置页面为加载中
-        progress.showLoading();
+        // 设置页面为加载中
+        loadinglayout.setStatus(LoadingLayout.Loading);
 
-        //设置适配器
+        // 设置适配器
         mQuickAdapter = new GanHuoAdapter(mContext, null);
-        //设置加载动画
+        // 设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        //设置是否自动加载以及加载个数
+        // 设置是否自动加载以及加载个数
         mQuickAdapter.openLoadMore(10, true);
-        //将适配器添加到RecyclerView
+        // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
 
-        //请求网络数据
+        // 请求网络数据
         setPresenter(new GanhuoPresenter(this));
         present.data(category, count, page, false);
 
@@ -130,25 +129,25 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         mQuickAdapter.addFooterView(view);
     }
 
-    /*
-    * MVP模式的相关状态
-    */
+    /**
+     * MVP模式的相关状态
+     */
     @Override
     public void showProgress() {
-        progress.showLoading();
+        loadinglayout.setStatus(LoadingLayout.Loading);
     }
 
     @Override
     public void hideProgress() {
-        progress.showContent();
+        loadinglayout.setStatus(LoadingLayout.Success);
     }
 
     @Override
     public void showLoadFailMsg() {
-        //设置加载错误页显示
-        progress.showError(getResources().getDrawable(R.mipmap.monkey_cry), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
+        // 设置加载错误页显示
+        loadinglayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
             @Override
-            public void onClick(View v) {
+            public void onReload(View v) {
                 page = 1;
                 present.data(category, count, page, false);
             }
@@ -158,7 +157,7 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
     @Override
     public void showNoData() {
         //设置无数据显示页面
-        progress.showEmpty(getResources().getDrawable(R.mipmap.monkey_nodata), Constant.EMPTY_TITLE, Constant.EMPTY_CONTEXT);
+        loadinglayout.setStatus(LoadingLayout.Empty);
     }
 
     @Override
@@ -166,7 +165,7 @@ public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter
         this.present = presenter;
     }
 
-    //下拉刷新
+    // 下拉刷新
     @Override
     public void onRefresh() {
         page = 1;

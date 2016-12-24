@@ -14,12 +14,11 @@ import com.joyue.tech.core.utils.ImageLoader;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.ContentAdapter;
 import com.joyue.tech.gankio.adapter.ContentSection;
-import com.joyue.tech.gankio.constants.Constant;
 import com.joyue.tech.gankio.domain.DayResult;
 import com.joyue.tech.gankio.domain.Result;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
-import com.vlonjatg.progressactivity.ProgressActivity;
+import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,8 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
-    @BindView(R.id.progress)
-    ProgressActivity progress;
+    @BindView(R.id.loadinglayout)
+    LoadingLayout loadinglayout;
     @BindView(R.id.iv_meizi)
     ImageView iv_meizi;
 
@@ -56,25 +55,25 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         month = date.split("-")[1];
         day = date.split("-")[2];
 
-        //springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
+        // springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         //如果Item高度固定 增加该属性能够提高效率
         mRecyclerView.setHasFixedSize(true);
 
-        //设置页面为加载中
-        progress.showLoading();
+        // 设置页面为加载中
+        loadinglayout.setStatus(LoadingLayout.Loading);
 
-        //设置适配器
+        // 设置适配器
         mQuickAdapter = new ContentAdapter(R.layout.item_content_layout, R.layout.item_content_header, null);
-        //设置加载动画
+        // 设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        //设置是否自动加载以及加载个数
+        // 设置是否自动加载以及加载个数
         mQuickAdapter.openLoadMore(false);
-        //将适配器添加到RecyclerView
+        // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-        //请求网络数据
+        // 请求网络数据
         setPresenter(new GanhuoPresenter(this));
         present.day(year, month, day);
 
@@ -130,20 +129,20 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
     */
     @Override
     public void showProgress() {
-        progress.showLoading();
+        loadinglayout.setStatus(LoadingLayout.Loading);
     }
 
     @Override
     public void hideProgress() {
-        progress.showContent();
+        loadinglayout.setStatus(LoadingLayout.Success);
     }
 
     @Override
     public void showLoadFailMsg() {
-        //设置加载错误页显示
-        progress.showError(getResources().getDrawable(R.mipmap.monkey_cry), Constant.ERROR_TITLE, Constant.ERROR_CONTEXT, Constant.ERROR_BUTTON, new View.OnClickListener() {
+        // 设置加载错误页显示
+        loadinglayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
             @Override
-            public void onClick(View v) {
+            public void onReload(View v) {
                 present.day(year, month, day);
             }
         });
@@ -151,8 +150,8 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
 
     @Override
     public void showNoData() {
-        //设置无数据显示页面
-        progress.showEmpty(getResources().getDrawable(R.mipmap.monkey_nodata), Constant.EMPTY_TITLE, Constant.EMPTY_CONTEXT);
+        // 设置无数据显示页面
+        loadinglayout.setStatus(LoadingLayout.Empty);
     }
 
     @Override

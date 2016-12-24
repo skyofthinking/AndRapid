@@ -18,8 +18,6 @@ import java.util.List;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
-// import com.joyue.tech.example.ui.WelcomeActivity;
-
 /**
  * @author JiangYH
  * @desc App的基础类

@@ -10,5 +10,5 @@ public class Constant {
     public static String ERROR_BUTTON = "重试";
 
     public static String EMPTY_TITLE = "没有找到数据";
-    public static String EMPTY_CONTEXT = "换个条件试试吧";
+    public static String EMPTY_CONTEXT = "换个条件试试";
 }

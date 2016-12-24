@@ -1,5 +1,6 @@
-package com.joyue.tech.gankio.ui.fragment;
+package com.joyue.tech.gankio.ui;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.gankio.R;
-import com.joyue.tech.gankio.adapter.MeiziAdapter;
+import com.joyue.tech.gankio.adapter.GanHuoAdapter;
 import com.joyue.tech.gankio.domain.Result;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
@@ -21,7 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, GanhuoContract.View {
+public class RapidListFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, GanhuoContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
@@ -33,7 +34,7 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
     BaseQuickAdapter mQuickAdapter;
 
     GanhuoContract.Presenter present;
-    String category = "福利";
+    String category = "all";
     int page = 1;
     int count = 10;
 
@@ -44,6 +45,11 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
 
     @Override
     public void initView(View rootView) {
+        page = 1;
+
+        Bundle bundle = getArguments();
+        category = bundle.getString("category");
+
         // 设置下拉刷新监听
         springView.setListener(this);
         // 设置下拉刷新样式
@@ -60,7 +66,7 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
         loadinglayout.setStatus(LoadingLayout.Loading);
 
         // 设置适配器
-        mQuickAdapter = new MeiziAdapter(R.layout.item_meizi, null);
+        mQuickAdapter = new GanHuoAdapter(mContext, null);
         // 设置加载动画
         mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         // 设置是否自动加载以及加载个数
@@ -102,9 +108,9 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
     }
 
     @Override
-    public void newDatas(List<Result> newsList) {
+    public void newDatas(List<Result> newList) {
         //进入显示的初始数据或者下拉刷新显示的数据
-        mQuickAdapter.setNewData(newsList);//新增数据
+        mQuickAdapter.setNewData(newList);//新增数据
         mQuickAdapter.openLoadMore(10, true);//设置是否可以下拉加载以及加载条数
         springView.onFinishFreshAndLoad();//刷新完成
     }
@@ -148,7 +154,6 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
         });
     }
 
-
     @Override
     public void showNoData() {
         //设置无数据显示页面
@@ -160,7 +165,7 @@ public class MeiziFragment extends RapidFragment implements BaseQuickAdapter.Req
         this.present = presenter;
     }
 
-    //下拉刷新
+    // 下拉刷新
     @Override
     public void onRefresh() {
         page = 1;
