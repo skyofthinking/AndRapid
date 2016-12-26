@@ -20,6 +20,7 @@ public abstract class RapidActivity extends RxAppCompatActivity {
 
     public String TAG = this.getClass().getSimpleName();
     private Unbinder unbinder;
+    public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
