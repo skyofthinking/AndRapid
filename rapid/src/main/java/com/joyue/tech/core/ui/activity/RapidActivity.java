@@ -29,6 +29,8 @@ public abstract class RapidActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
+
+        mContext = this;
         initView(savedInstanceState);
 
         // 方向锁定

@@ -57,8 +57,9 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
 
         // springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        //如果Item高度固定 增加该属性能够提高效率
-        mRecyclerView.setHasFixedSize(true);
+        // 解决滑动不流畅问题
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
         // 设置页面为加载中
         loadinglayout.setStatus(LoadingLayout.Loading);
@@ -71,7 +72,7 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mQuickAdapter.openLoadMore(false);
         // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
-        mRecyclerView.setNestedScrollingEnabled(false);
+
 
         // 请求网络数据
         setPresenter(new GanhuoPresenter(this));

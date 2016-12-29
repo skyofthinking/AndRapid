@@ -72,6 +72,7 @@ dependencies {
 
     // Image
     compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["photoview"]
 
     // Log
     compile rootProject.ext.dependencies["orhanobut-logger"]
