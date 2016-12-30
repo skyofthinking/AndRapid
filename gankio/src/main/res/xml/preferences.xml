@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen
-    android:layout="@layout/preference_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout="@layout/preference_item"
     android:title="@string/title_activity_setting">
     <PreferenceCategory
         android:layout="@layout/preference_category_widget"
         android:title="人性化自由选择">
 
         <CheckBoxPreference
-            android:layout="@layout/preference_item"
-            android:title="贝壳通知栏单词处于最高位置"
+            android:defaultValue="false"
             android:key="@string/notify_priority"
-            android:summaryOn="当前为最高位置"
+            android:layout="@layout/preference_item"
             android:summaryOff="当前为最低位置(默认)"
-            android:defaultValue="false"/>
+            android:summaryOn="当前为最高位置"
+            android:title="贝壳通知栏单词处于最高位置"/>
         <Preference
+            android:defaultValue="false"
             android:layout="@layout/preference_item"
-            android:title="在通知栏显示音标"
             android:summary="当前为不显示"
-            android:defaultValue="false"/>
+            android:title="在通知栏显示音标"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:layout="@layout/preference_item"
-            android:title="全局复习小吐司"
             android:summaryOff="@string/toast_close"
             android:summaryOn="@string/toast_open"
-            android:defaultValue="true"/>
+            android:title="全局复习小吐司"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:layout="@layout/preference_item"
-            android:title="通知栏消息字体颜色"
             android:summaryOff="当前为黑色"
             android:summaryOn="当前为白色"
-            android:defaultValue="true"/>
+            android:title="通知栏消息字体颜色"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:layout="@layout/preference_item"
-            android:title="开机自启动"
-            android:summaryOn="@string/xiaomi_attention"
             android:summaryOff="@string/xiaomi_attention"
-            android:defaultValue="true"/>
+            android:summaryOn="@string/xiaomi_attention"
+            android:title="开机自启动"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -51,6 +51,12 @@
         </Preference>
 
         <Preference
+            android:defaultValue="10M"
+            android:layout="@layout/preference_item"
+            android:summary="10M"
+            android:title="清除缓存"/>
+        
+        <Preference
             android:layout="@layout/preference_item"
             android:title="手动检查更新">
             <intent
@@ -60,8 +66,8 @@
 
         <Preference
             android:layout="@layout/preference_item"
-            android:title="喜欢贝壳单词"
-            android:summary="若你觉得贝壳单词很赞的话，麻烦点击此处到应用商店给个好评，非常感谢">
+            android:summary="若你觉得贝壳单词很赞的话，麻烦点击此处到应用商店给个好评，非常感谢"
+            android:title="喜欢贝壳单词">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="market://details?id=me.drakeet.seashell"/>
