@@ -1,9 +1,11 @@
 package com.joyue.tech.core.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
@@ -63,7 +65,23 @@ public abstract class RapidActivity extends RxAppCompatActivity {
         super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
 
+    protected <T extends View> T $(int id) {
+        return (T) super.findViewById(id);
+    }
+
     public abstract int getLayoutId();
 
     public abstract void initView(Bundle savedInstanceState);
+
+    protected void startActivityWithoutExtras(Class<?> clazz) {
+        Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
+
+    protected void startActivityWithExtras(Class<?> clazz, Bundle extras) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtras(extras);
+        startActivity(intent);
+
+    }
 }

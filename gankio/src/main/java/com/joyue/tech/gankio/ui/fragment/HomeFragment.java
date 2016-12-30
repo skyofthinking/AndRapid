@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.rx.Events;
 import com.joyue.tech.core.rx.RxBus;
+import com.joyue.tech.core.ui.activity.ViewPicActivity;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.core.utils.ImageLoader;
 import com.joyue.tech.core.utils.SPUtils;
@@ -34,7 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import rx.functions.Action1;
 
-public class HomeFragment  extends RapidFragment implements GanhuoContract.View {
+public class HomeFragment extends RapidFragment implements GanhuoContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
@@ -87,7 +88,6 @@ public class HomeFragment  extends RapidFragment implements GanhuoContract.View 
         // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
 
-
         // 请求网络数据
         setPresenter(new GanhuoPresenter(this));
         present.day(year, month, day);
@@ -120,6 +120,13 @@ public class HomeFragment  extends RapidFragment implements GanhuoContract.View 
         if (dayResults != null && dayResults.size() > 0) {
             DayResult item = dayResults.get(0);
             ImageLoader.with(iv_meizi, item.getUrl(), R.mipmap.monkey_nodata);
+
+            iv_meizi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewPicActivity.openActivity(iv_meizi.getContext(), iv_meizi, item.getUrl());
+                }
+            });
         }
 
         // 进入显示的初始数据或者下拉刷新显示的数据
@@ -215,7 +222,6 @@ public class HomeFragment  extends RapidFragment implements GanhuoContract.View 
             }
         }
     }
-
 
     public void initSubscribers() {
         RxBus.with(this).setEvent(EventsWhat.SET_CUR_DATE).setEndEvent(FragmentEvent.DESTROY).onNext(new Action1<Events<?>>() {
