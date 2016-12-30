@@ -54,6 +54,8 @@ dependencies {
     compile rootProject.ext.dependencies["rxlifecycle"]
     compile rootProject.ext.dependencies["rxlifecycle-android"]
     compile rootProject.ext.dependencies["rxlifecycle-components"]
+    compile rootProject.ext.dependencies["rxdownload"]
+    compile rootProject.ext.dependencies["rxpermissions"]
 
     // Squareup HTTP
     compile rootProject.ext.dependencies["retrofit"]
