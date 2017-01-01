@@ -30,4 +30,11 @@ public class BaseConstant {
         public static int TWO = 2;
     }
 
+    public static final class IntentConst {
+        private IntentConst() {
+        }
+
+        public static String URL = "URL";
+    }
+
 }

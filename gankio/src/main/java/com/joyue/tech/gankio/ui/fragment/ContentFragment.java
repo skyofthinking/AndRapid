@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.joyue.tech.core.constant.BaseConstant;
 import com.joyue.tech.core.ui.UIManager;
 import com.joyue.tech.core.ui.activity.RapidWebViewActivity;
 import com.joyue.tech.core.ui.activity.ViewPicActivity;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.core.utils.ImageLoader;
+import com.joyue.tech.core.utils.TLog;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.ContentAdapter;
 import com.joyue.tech.gankio.adapter.ContentSection;
@@ -90,15 +92,19 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
+                ContentSection contentSection = (ContentSection) mQuickAdapter.getData().get(position);
+                DayResult dayResult = contentSection.t;
 
-                UIManager.startActivity(mContext, RapidWebViewActivity.class);
+                Bundle mBundle = new Bundle();
+                TLog.d(TAG, "URL " + dayResult.getUrl());
+                mBundle.putString(BaseConstant.IntentConst.URL, dayResult.getUrl());
+
+                UIManager.startActivity(mContext, RapidWebViewActivity.class, mBundle);
             }
         });
         mQuickAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
             @Override
             public boolean onItemLongClick(View view, int position) {
-                Toast.makeText(mContext, "长按了" + position, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

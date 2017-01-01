@@ -37,4 +37,10 @@ public class UIManager {
         context.startActivity(intent);
     }
 
+    public static void startActivity(Context context, Class activityClass, Bundle bundle) {
+        Intent intent = new Intent(RapidApp.getContext(), activityClass);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
 }
