@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.joyue.tech.core.ui.UIManager;
+import com.joyue.tech.core.ui.activity.RapidWebViewActivity;
+import com.joyue.tech.core.ui.activity.ViewPicActivity;
 import com.joyue.tech.core.ui.fragment.RapidFragment;
 import com.joyue.tech.core.utils.ImageLoader;
 import com.joyue.tech.gankio.R;
@@ -50,7 +53,9 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
     @Override
     public void initView(View rootView) {
         Bundle bundle = getArguments();
-        String date = bundle.getString("date");
+
+        String date = getHisDate();
+
         year = date.split("-")[0];
         month = date.split("-")[1];
         day = date.split("-")[2];
@@ -86,6 +91,8 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
+
+                UIManager.startActivity(mContext, RapidWebViewActivity.class);
             }
         });
         mQuickAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
@@ -104,6 +111,13 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         if (dayResults != null && dayResults.size() > 0) {
             DayResult item = dayResults.get(0);
             ImageLoader.with(iv_meizi, item.getUrl(), R.mipmap.monkey_nodata);
+
+            iv_meizi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewPicActivity.openActivity(iv_meizi.getContext(), iv_meizi, item.getUrl());
+                }
+            });
         }
 
         // 进入显示的初始数据或者下拉刷新显示的数据
@@ -198,5 +212,11 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
                 csList.add(new ContentSection(dayResult));
             }
         }
+    }
+
+    public String getHisDate() {
+        Bundle bundle = getArguments();
+        String date = bundle.getString("date");
+        return date;
     }
 }

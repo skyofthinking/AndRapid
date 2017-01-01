@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.joyue.tech.gankio"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.joyue.tech.gankio">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -31,6 +31,9 @@
         </activity>
         <activity
             android:name="com.joyue.tech.core.ui.activity.RapidClickButtonActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.joyue.tech.core.ui.activity.RapidWebViewActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.joyue.tech.core.ui.activity.ViewPicActivity"
