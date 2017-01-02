@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#eee"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eb4f38"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/search_et_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_search_edittext"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:drawablePadding="5dp"
+                android:hint="请输入关键字"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/search_iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/search_btn_back"
+            android:layout_width="@dimen/width40"
+            android:layout_height="@dimen/height50"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_search_btn"
+            android:text="返回"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_lv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/lv_search_tips_bg"
+        android:visibility="gone">
+
+    </ListView>
+
+</LinearLayout>

@@ -38,6 +38,42 @@
     <dimen name="padding120">120dp</dimen>
     <dimen name="padding140">140dp</dimen>
 
+    <dimen name="width1">1dp</dimen>
+    <dimen name="width2">2dp</dimen>
+    <dimen name="width3">3dp</dimen>
+    <dimen name="width5">5dp</dimen>
+    <dimen name="width8">8dp</dimen>
+    <dimen name="width10">10dp</dimen>
+    <dimen name="width12">12dp</dimen>
+    <dimen name="width15">15dp</dimen>
+    <dimen name="width20">20dp</dimen>
+    <dimen name="width30">30dp</dimen>
+    <dimen name="width40">40dp</dimen>
+    <dimen name="width50">50dp</dimen>
+    <dimen name="width60">60dp</dimen>
+    <dimen name="width70">70dp</dimen>
+    <dimen name="width80">80dp</dimen>
+    <dimen name="width120">120dp</dimen>
+    <dimen name="width140">140dp</dimen>
+
+    <dimen name="height1">1dp</dimen>
+    <dimen name="height2">2dp</dimen>
+    <dimen name="height3">3dp</dimen>
+    <dimen name="height5">5dp</dimen>
+    <dimen name="height8">8dp</dimen>
+    <dimen name="height10">10dp</dimen>
+    <dimen name="height12">12dp</dimen>
+    <dimen name="height15">15dp</dimen>
+    <dimen name="height20">20dp</dimen>
+    <dimen name="height30">30dp</dimen>
+    <dimen name="height40">40dp</dimen>
+    <dimen name="height50">50dp</dimen>
+    <dimen name="height60">60dp</dimen>
+    <dimen name="height70">70dp</dimen>
+    <dimen name="height80">80dp</dimen>
+    <dimen name="height120">120dp</dimen>
+    <dimen name="height140">140dp</dimen>
+
     <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize13">13sp</dimen>
     <dimen name="textSize14">14sp</dimen>
