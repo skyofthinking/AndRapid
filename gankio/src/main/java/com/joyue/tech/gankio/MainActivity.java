@@ -6,24 +6,19 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.joyue.tech.core.rx.Events;
 import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
+import com.joyue.tech.core.ui.activity.RapidSearchActivity;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
-import com.joyue.tech.core.utils.KeyBoardUtils;
 import com.joyue.tech.core.utils.SPUtils;
 import com.joyue.tech.core.utils.StrKit;
 import com.joyue.tech.core.utils.ToastUtils;
@@ -104,59 +99,6 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-        // 查询按钮
-        String value = "Test";
-        final MenuItem item = menu.findItem(R.id.action_search);
-        SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        // mSearchView.setIconifiedByDefault(false);
-        mEdit = (SearchView.SearchAutoComplete) mSearchView.findViewById(R.id.search_src_text);
-        // mEdit.setText(value);
-        // mEdit.setSelection(value.length());
-        // mSearchView.setQueryHint("输入您感兴趣的...");
-
-        final LinearLayout search_edit_frame = (LinearLayout) mSearchView.findViewById(R.id.search_edit_frame);
-        // search_edit_frame.setBackgroundResource(R.drawable.shape_from_edit);
-        search_edit_frame.setClickable(true);
-
-        mEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                search_edit_frame.setPressed(hasFocus);
-            }
-        });
-
-        mEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                search_edit_frame.setPressed(true);
-            }
-        });
-
-        mEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                // 判断是否是 GO 键
-                ToastUtils.show("IME_ACTION_SEARCH " + actionId);
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    // 隐藏软键盘
-                    ToastUtils.show("IME_ACTION_SEARCH");
-                    mSearchView.clearFocus();
-                    search_edit_frame.setPressed(false);
-                    KeyBoardUtils.closeKeybord(mEdit, mContext);
-                    // 清空查询列表 重新进行查询
-                    if (!StrKit.isEmpty(v.getText().toString())) {
-                        ToastUtils.show("Click Search");
-                        // contentlists.clear();
-                        // value = v.getText().toString();
-                        // page = 1;
-                        // resqustData(page);
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
         return true;
 
     }
@@ -171,6 +113,7 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_search:
+                UIManager.startActivity(mContext, RapidSearchActivity.class);
                 ToastUtils.show("Search");
                 break;
             case R.id.action_share:

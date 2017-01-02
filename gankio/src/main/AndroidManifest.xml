@@ -36,6 +36,9 @@
             android:name="com.joyue.tech.core.ui.activity.RapidWebViewActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name="com.joyue.tech.core.ui.activity.RapidSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name="com.joyue.tech.core.ui.activity.ViewPicActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

@@ -5,10 +5,9 @@
     <!--搜索-->
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="80"
-        android:title="search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="搜索"
         app:showAsAction="ifRoom"/>
 
     <!--分享-->
@@ -16,12 +15,12 @@
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_white_24dp"
         android:orderInCategory="90"
-        android:title="Share"
+        android:title="分享"
         app:showAsAction="ifRoom"/>
-
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/loadinglayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isFirstVisible="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--SpringView下拉刷新-->
+            <com.liaoinstan.springview.widget.SpringView
+                android:id="@+id/springview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#eeeeee"/>
+            </com.liaoinstan.springview.widget.SpringView>
+
+        </LinearLayout>
+
+    </com.weavey.loading.lib.LoadingLayout>
+
+</LinearLayout>

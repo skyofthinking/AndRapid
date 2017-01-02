@@ -36,8 +36,8 @@ public abstract class RapidFragment extends RxFragment {
             isInitView = true;
         }
 
-        // 缓存的rootView需要判断是否已经被加过parent，
-        // 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+        // 缓存的RootView需要判断是否已经被加过Parent，
+        // 如果有Parent需要从Parent删除，要不然会发生这个RootView已经有Pparent的错误。
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
             parent.removeView(rootView);
