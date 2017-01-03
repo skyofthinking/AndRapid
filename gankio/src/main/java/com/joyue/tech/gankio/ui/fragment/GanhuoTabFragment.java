@@ -8,77 +8,48 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.joyue.tech.core.ui.fragment.RapidFragment;
+import com.joyue.tech.core.ui.fragment.RapidListFragment;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.GanHuoAdapter;
 import com.joyue.tech.gankio.domain.Result;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoContract;
 import com.joyue.tech.gankio.mvp.ganhuo.GanhuoPresenter;
-import com.liaoinstan.springview.container.DefaultHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.List;
 
-import butterknife.BindView;
-
-public class GanhuoTabFragment extends RapidFragment implements BaseQuickAdapter.RequestLoadMoreListener, SpringView.OnFreshListener, GanhuoContract.View {
-
-    @BindView(R.id.rv_list)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.springview)
-    SpringView springView;
-    @BindView(R.id.loadinglayout)
-    LoadingLayout loadinglayout;
-
-    BaseQuickAdapter mQuickAdapter;
+public class GanhuoTabFragment extends RapidListFragment implements BaseQuickAdapter.RequestLoadMoreListener, GanhuoContract.View {
 
     GanhuoContract.Presenter present;
+
     String category = "all";
     int page = 1;
     int count = 10;
 
     @Override
-    public int getLayoutId() {
-        return R.layout.fragment_list_view;
-    }
-
-    @Override
     public void initView(View rootView) {
+        super.initView(rootView);
+
         page = 1;
 
         Bundle bundle = getArguments();
         category = bundle.getString("category");
-
-        // 设置下拉刷新监听
-        springView.setListener(this);
-        // 设置下拉刷新样式
-        springView.setType(SpringView.Type.FOLLOW);
-        springView.setHeader(new DefaultHeader(mContext));
-        // springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
-
-        // 设置RecyclerView的显示模式 当前List模式
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        // 如果Item高度固定 增加该属性能够提高效率
-        mRecyclerView.setHasFixedSize(true);
-
-        // 设置页面为加载中
-        loadinglayout.setStatus(LoadingLayout.Loading);
-
-        // 设置适配器
-        mQuickAdapter = new GanHuoAdapter(mContext, null);
-        // 设置加载动画
-        mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        // 设置是否自动加载以及加载个数
-        mQuickAdapter.openLoadMore(10, true);
-        // 将适配器添加到RecyclerView
-        mRecyclerView.setAdapter(mQuickAdapter);
 
         // 请求网络数据
         setPresenter(new GanhuoPresenter(this));
         present.data(category, count, page, false);
 
         initListener();
+    }
+
+    @Override
+    public BaseQuickAdapter getQuickAdapter() {
+        return new GanHuoAdapter(mContext, null);
+    }
+
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(mContext);
     }
 
     private void initListener() {

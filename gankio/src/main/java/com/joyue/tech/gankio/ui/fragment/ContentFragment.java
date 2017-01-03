@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.joyue.tech.core.constant.BaseConstant;
@@ -79,7 +78,6 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mQuickAdapter.openLoadMore(false);
         // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
-
 
         // 请求网络数据
         setPresenter(new GanhuoPresenter(this));

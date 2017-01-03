@@ -60,6 +60,10 @@ public abstract class RapidFragment extends RxFragment {
 
     public abstract void initView(View rootView);
 
+    protected <T extends View> T $(View rootView, int id) {
+        return (T) rootView.findViewById(id);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

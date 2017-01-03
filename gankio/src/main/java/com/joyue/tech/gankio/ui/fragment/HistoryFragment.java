@@ -12,72 +12,42 @@ import com.joyue.tech.core.constant.BaseConstant;
 import com.joyue.tech.core.rx.Events;
 import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
-import com.joyue.tech.core.ui.fragment.RapidFragment;
+import com.joyue.tech.core.ui.fragment.RapidListFragment;
 import com.joyue.tech.core.utils.SPUtils;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.HistoryAdapter;
 import com.joyue.tech.gankio.mvp.history.HistoryContract;
 import com.joyue.tech.gankio.mvp.history.HistoryPresenter;
 import com.joyue.tech.gankio.rx.EventsWhat;
-import com.liaoinstan.springview.container.DefaultHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.List;
 
-import butterknife.BindView;
-
-public class HistoryFragment extends RapidFragment implements SpringView.OnFreshListener, HistoryContract.View {
-
-    @BindView(R.id.rv_list)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.springview)
-    SpringView springView;
-    @BindView(R.id.loadinglayout)
-    LoadingLayout loadinglayout;
-
-    BaseQuickAdapter mQuickAdapter;
+public class HistoryFragment extends RapidListFragment implements HistoryContract.View {
 
     HistoryContract.Presenter present;
 
     @Override
-    public int getLayoutId() {
-        return R.layout.fragment_list_view;
-    }
-
-    @Override
     public void initView(View rootView) {
+        super.initView(rootView);
+
         Bundle bundle = getArguments();
-
-        // 设置下拉刷新监听
-        springView.setListener(this);
-        // 设置下拉刷新样式
-        springView.setType(SpringView.Type.FOLLOW);
-        springView.setHeader(new DefaultHeader(mContext));
-        // springView.setFooter(new RotationFooter(this)); mRecyclerView内部集成的自动加载 上拉加载用不上 在其他View使用
-
-        // 与ListView唯一的区别就是这里new GridLayoutManager(this,2) 数字代表列数
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, BaseConstant.Column.TWO));
-        // 如果Item高度固定 增加该属性能够提高效率
-        mRecyclerView.setHasFixedSize(true);
-
-        // 设置页面为加载中
-        loadinglayout.setStatus(LoadingLayout.Loading);
-
-        // 设置适配器
-        mQuickAdapter = new HistoryAdapter(R.layout.item_history, null);
-        // 设置加载动画
-        mQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        // 设置是否自动加载以及加载个数
-        mQuickAdapter.openLoadMore(false);
-        // 将适配器添加到RecyclerView
-        mRecyclerView.setAdapter(mQuickAdapter);
 
         // 请求网络数据
         setPresenter(new HistoryPresenter(this));
         present.history();
 
         initListener();
+    }
+
+    @Override
+    public BaseQuickAdapter getQuickAdapter() {
+        return new HistoryAdapter(R.layout.item_history, null);
+    }
+
+    @Override
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new GridLayoutManager(mContext, BaseConstant.Column.TWO);
     }
 
     private void initListener() {
