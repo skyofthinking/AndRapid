@@ -2,7 +2,7 @@ ext {
 
     android = [
             compileSdkVersion       : 25,
-            buildToolsVersion       : "25.0.0",
+            buildToolsVersion       : "25.0.2",
             minSdkVersion           : 16,
             targetSdkVersion        : 25,
             versionCode             : 1,
@@ -21,6 +21,8 @@ ext {
             "recyclerview-v7"                : "com.android.support:recyclerview-v7:${android["androidSupportSdkVersion"]}",
             "cardview-v7"                    : "com.android.support:cardview-v7:${android["androidSupportSdkVersion"]}",
             "design"                         : "com.android.support:design:${android["androidSupportSdkVersion"]}",
+            "support-v4"                     : "com.android.support:support-v4:${android["androidSupportSdkVersion"]}",
+            "support-vector-drawable"        : "com.android.support:support-vector-drawable:${android["androidSupportSdkVersion"]}",
 
             // Rx
             "rxjava"                         : "io.reactivex:rxjava:1.1.6",

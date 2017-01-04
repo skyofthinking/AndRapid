@@ -67,9 +67,6 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-        // 设置页面为加载中
-        loadinglayout.setStatus(LoadingLayout.Loading);
-
         // 设置适配器
         mQuickAdapter = new ContentAdapter(R.layout.item_content_layout, R.layout.item_content_header, null);
         // 设置加载动画
@@ -78,6 +75,9 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         mQuickAdapter.openLoadMore(false);
         // 将适配器添加到RecyclerView
         mRecyclerView.setAdapter(mQuickAdapter);
+
+        // 设置页面为加载中
+        loadinglayout.setStatus(LoadingLayout.Loading);
 
         // 请求网络数据
         setPresenter(new GanhuoPresenter(this));

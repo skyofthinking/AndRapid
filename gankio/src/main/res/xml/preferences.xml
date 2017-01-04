@@ -9,7 +9,7 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="@string/notify_priority"
+            android:key="pref_notify_priority"
             android:layout="@layout/preference_item"
             android:summaryOff="当前为最低位置(默认)"
             android:summaryOn="当前为最高位置"
@@ -51,14 +51,16 @@
         </Preference>
 
         <Preference
-            android:defaultValue="10M"
+            android:defaultValue="0.0Byte"
+            android:key="pref_clear_cache"
             android:layout="@layout/preference_item"
             android:summary="10M"
-            android:title="清除缓存"/>
-        
+            android:title="@string/pref_clear_cache_title"/>
+
         <Preference
+            android:key="pref_check_update"
             android:layout="@layout/preference_item"
-            android:title="手动检查更新">
+            android:title="@string/pref_check_update_title">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="http://fir.im/seashell"/>
@@ -80,8 +82,8 @@
         android:title="感谢有你">
         <Preference
             android:layout="@layout/preference_item"
-            android:summary="我的博客：http://drakeet.me"
-            android:title="作者：drakeet"/>
+            android:summary="我的博客：http://www.jiangyh.com"
+            android:title="作者：JiangYH"/>
 
         <Preference
             android:layout="@layout/preference_item"

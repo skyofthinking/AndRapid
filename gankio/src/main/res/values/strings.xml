@@ -13,7 +13,9 @@
     <string name="action_aboutme">关于</string>
 
     <!-- Setting -->
-    <string name="notify_priority">notify_priority</string>
+    <string name="pref_clear_cache_title">清除缓存</string>
+    <string name="pref_check_update_title">手动检查更新</string>
+
     <string name="title_activity_setting">设置</string>
     <string name="title_activity_about">关于</string>
     <string name="xiaomi_attention">

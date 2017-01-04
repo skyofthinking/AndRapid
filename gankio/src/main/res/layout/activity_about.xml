@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@android:color/white"
         app:cardElevation="@null"
@@ -37,13 +37,13 @@
                 android:padding="@dimen/padding5"
                 android:text="GankIO客户端"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textSize12"/>
+                android:textSize="@dimen/textSize14"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding5"
-                android:text="1.0.0"
+                android:text="v1.0.0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize12"/>
 
@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding5"
+                    android:padding="@dimen/padding8"
                     android:text="@string/about_me_git"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize12"/>
@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding5"
+                    android:padding="@dimen/padding8"
                     android:text="@string/about_me_blog"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize12"/>

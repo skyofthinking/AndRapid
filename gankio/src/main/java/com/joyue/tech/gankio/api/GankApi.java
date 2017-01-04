@@ -1,7 +1,7 @@
 package com.joyue.tech.gankio.api;
 
 import com.joyue.tech.core.http.APIRequest;
-import com.joyue.tech.core.utils.FileUtil;
+import com.joyue.tech.core.utils.FileUtils;
 import com.joyue.tech.gankio.api.cache.CacheProviders;
 import com.joyue.tech.gankio.domain.Result;
 
@@ -21,8 +21,8 @@ import rx.Observer;
 
 public class GankApi extends BaseApi {
 
-    public static File cacheDirectory = FileUtil.getcacheDirectory();
-    public static final CacheProviders providers = new RxCache.Builder().persistence(cacheDirectory, new GsonSpeaker()).using(CacheProviders.class);
+    public static File rxCacheDir = FileUtils.getRxCacheDir();
+    public static final CacheProviders providers = new RxCache.Builder().persistence(rxCacheDir, new GsonSpeaker()).using(CacheProviders.class);
     private static final GankApi instance = new GankApi();
     private static final ApiService service = APIRequest.getInstance().create(ApiService.class);
 

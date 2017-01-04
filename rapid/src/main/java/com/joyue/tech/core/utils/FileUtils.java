@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.joyue.tech.core.RapidApp;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -233,6 +235,19 @@ public class FileUtils {
     }
 
     /**
+     * 得到RxCache目录
+     *
+     * @return
+     */
+    public static File getRxCacheDir() {
+        File rxCache = new File(getCacheDir(RapidApp.getContext()), "RxCache");
+        if (!rxCache.exists()) {
+            boolean create = rxCache.mkdirs();
+        }
+        return rxCache;
+    }
+
+    /**
      * 得到皮肤目录
      *
      * @param context
@@ -240,7 +255,7 @@ public class FileUtils {
      */
     public static File getSkinDir(Context context) {
         File skinDir = new File(getCacheDir(context), "skin");
-        if (skinDir.exists()) {
+        if (!skinDir.exists()) {
             skinDir.mkdirs();
         }
         return skinDir;

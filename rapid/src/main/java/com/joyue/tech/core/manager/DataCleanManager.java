@@ -117,7 +117,7 @@ public class DataCleanManager {
     // 获取文件
     // Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
     // Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/ 目录，一般存放临时缓存数据
-    public static long getFolderSize(File file) throws Exception {
+    public static long getFolderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -163,7 +163,6 @@ public class DataCleanManager {
                     }
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -202,7 +201,7 @@ public class DataCleanManager {
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
 
-    public static String getCacheSize(File file) throws Exception {
+    public static String getCacheSize(File file) {
         return getFormatSize(getFolderSize(file));
     }
 
