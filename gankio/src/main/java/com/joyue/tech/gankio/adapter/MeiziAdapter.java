@@ -20,6 +20,6 @@ public class MeiziAdapter extends BaseQuickAdapter<Result> {
 
     @Override
     protected void convert(BaseViewHolder helper, Result item) {
-        ImageLoader.with(helper.getView(R.id.iv_meizi), item.getUrl(), R.mipmap.monkey_nodata);
+        ImageLoader.with(helper.getView(R.id.iv_meizi), item.getUrl(), R.mipmap.img_nodata, true);
     }
 }

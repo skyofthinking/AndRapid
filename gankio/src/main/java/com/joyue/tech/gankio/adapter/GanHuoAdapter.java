@@ -35,7 +35,7 @@ public class GanHuoAdapter extends BaseMultiItemQuickAdapter<Result> {
                 helper.setText(R.id.tv_time, TimeUtils.date2String(TimeUtils.string2Date(item.getPublishedAt(), DEFAULT_SDF)));
                 break;
             case Result.IMG:
-                ImageLoader.with(helper.getView(R.id.iv_meizi), item.getUrl(), R.mipmap.monkey_nodata);
+                ImageLoader.with(helper.getView(R.id.iv_meizi), item.getUrl(), R.mipmap.img_nodata, true);
                 break;
         }
     }

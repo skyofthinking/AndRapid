@@ -114,7 +114,7 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
         List<DayResult> dayResults = result.getMeizi();
         if (dayResults != null && dayResults.size() > 0) {
             DayResult item = dayResults.get(0);
-            ImageLoader.with(iv_meizi, item.getUrl(), R.mipmap.monkey_nodata);
+            ImageLoader.with(iv_meizi, item.getUrl(), R.mipmap.img_nodata, true);
 
             iv_meizi.setOnClickListener(new View.OnClickListener() {
                 @Override
