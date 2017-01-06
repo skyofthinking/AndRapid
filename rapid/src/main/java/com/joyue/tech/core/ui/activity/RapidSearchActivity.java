@@ -21,61 +21,28 @@ import java.util.List;
  */
 public class RapidSearchActivity extends RapidActivity implements SearchView.SearchViewListener {
 
-    /**
-     * 搜索结果列表view
-     */
-    private RecyclerView lvResults;
-
-    /**
-     * 搜索view
-     */
-    private SearchView searchView;
-
-
-    /**
-     * 热搜框列表adapter
-     */
-    private ArrayAdapter<String> hintAdapter;
-
-    /**
-     * 自动补全列表adapter
-     */
-    private ArrayAdapter<String> autoCompleteAdapter;
-
-    /**
-     * 搜索结果列表adapter
-     */
-    private SearchAdapter resultAdapter;
-
-    /**
-     * 数据库数据，总数据
-     */
-    private List<Bean> dbData;
-
-    /**
-     * 热搜版数据
-     */
-    private List<String> hintData;
-
-    /**
-     * 搜索过程中自动补全数据
-     */
-    private List<String> autoCompleteData;
-
-    /**
-     * 搜索结果的数据
-     */
-    private List<Bean> resultData;
-
-    /**
-     * 默认提示框显示项的个数
-     */
-    private static int DEFAULT_HINT_SIZE = 4;
-
-    /**
-     * 提示框显示项的个数
-     */
-    private static int hintSize = DEFAULT_HINT_SIZE;
+    // 搜索结果列表view
+    RecyclerView lvResults;
+    // 搜索view
+    SearchView searchView;
+    // 热搜框列表adapter
+    ArrayAdapter<String> hintAdapter;
+    // 自动补全列表adapter
+    ArrayAdapter<String> autoCompleteAdapter;
+    // 搜索结果列表adapter
+    SearchAdapter resultAdapter;
+    // 数据库数据，总数据
+    List<Bean> dbData;
+    // 热搜版数据
+    List<String> hintData;
+    // 搜索过程中自动补全数据
+    List<String> autoCompleteData;
+    // 搜索结果的数据
+    List<Bean> resultData;
+    // 默认提示框显示项的个数
+    static int DEFAULT_HINT_SIZE = 4;
+    // 提示框显示项的个数
+    static int hintSize = DEFAULT_HINT_SIZE;
 
     /**
      * 设置提示框显示项的个数

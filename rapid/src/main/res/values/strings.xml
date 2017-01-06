@@ -7,4 +7,7 @@
     <string name="net_empty_title">没有找到数据</string>
     <string name="net_empty_context">换个条件试试</string>
 
+    <string name="txt_cancel">取消</string>
+    <string name="txt_back">返回</string>
+
 </resources>

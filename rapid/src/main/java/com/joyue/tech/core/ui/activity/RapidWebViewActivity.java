@@ -7,8 +7,8 @@ import android.webkit.WebView;
 
 import com.joyue.tech.core.R;
 import com.joyue.tech.core.constant.BaseConstant;
-import com.joyue.tech.core.utils.TLog;
 import com.joyue.tech.core.widget.RapidWebView;
+import com.weavey.loading.lib.LoadingLayout;
 
 /**
  * @author JiangYH
@@ -18,6 +18,7 @@ public class RapidWebViewActivity extends RapidToolbarActivity {
     WebView mWebView;
     WebSettings mSettings;
     RapidWebView mRapidWebView;
+    LoadingLayout loadinglayout;
 
     @Override
     public int getLayoutId() {
@@ -34,11 +35,10 @@ public class RapidWebViewActivity extends RapidToolbarActivity {
         super.initView(savedInstanceState);
 
         Intent mIntent = getIntent();
-        Bundle mBundle = mIntent.getExtras();
         String url = mIntent.getStringExtra(BaseConstant.IntentConst.URL);
-        TLog.d(TAG, "URL " + mIntent.getStringExtra(BaseConstant.IntentConst.URL));
 
         mWebView = $(R.id.wv_rapid);
+        loadinglayout = $(R.id.loadinglayout);
 
         mSettings = mWebView.getSettings();
 
@@ -58,7 +58,7 @@ public class RapidWebViewActivity extends RapidToolbarActivity {
         // 加载URL
         mWebView.loadUrl(url);
         // 加载URL
-        mRapidWebView = new RapidWebView(this, mWebView);
+        mRapidWebView = new RapidWebView(this, mWebView, loadinglayout);
         mWebView.setWebViewClient(mRapidWebView);
     }
 }

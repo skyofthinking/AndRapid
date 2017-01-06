@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.joyue.tech.core.utils.TLog;
+import com.weavey.loading.lib.LoadingLayout;
 
 /**
  * @author JiangYH
@@ -15,6 +16,7 @@ public class RapidWebView extends WebViewClient {
     String TAG = getClass().getSimpleName();
     Context mContext;
     WebView mWebView;
+    LoadingLayout loadinglayout;
 
     /**
      * 构造方法
@@ -22,10 +24,11 @@ public class RapidWebView extends WebViewClient {
      * @param mContext
      * @param mWebView
      */
-    public RapidWebView(Context mContext, WebView mWebView) {
+    public RapidWebView(Context mContext, WebView mWebView, LoadingLayout loadinglayout) {
         super();
         this.mContext = mContext;
         this.mWebView = mWebView;
+        this.loadinglayout = loadinglayout;
     }
 
     /**
@@ -56,6 +59,8 @@ public class RapidWebView extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
+        // 设置加载
+        loadinglayout.setStatus(LoadingLayout.Loading);
         TLog.d(TAG, "RapidWebView onPageStarted");
     }
 
@@ -66,6 +71,7 @@ public class RapidWebView extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        loadinglayout.setStatus(LoadingLayout.Success);
         TLog.d(TAG, "RapidWebView onPageFinished");
     }
 
@@ -75,6 +81,7 @@ public class RapidWebView extends WebViewClient {
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
+        loadinglayout.setStatus(LoadingLayout.Error);
     }
 
 }

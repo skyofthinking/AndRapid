@@ -8,9 +8,17 @@
 
     <include layout="@layout/inc_toolbar"/>
 
-    <WebView
-        android:id="@+id/wv_rapid"
+    <com.weavey.loading.lib.LoadingLayout
+        android:id="@+id/loadinglayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:isFirstVisible="true">
+
+        <WebView
+            android:id="@+id/wv_rapid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.weavey.loading.lib.LoadingLayout>
 
 </LinearLayout>

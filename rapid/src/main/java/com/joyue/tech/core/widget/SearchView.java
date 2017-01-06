@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,46 +24,25 @@ import com.joyue.tech.core.R;
  * @author JiangYH
  * @desc 搜索界面
  */
-public class SearchView extends LinearLayout implements View.OnClickListener {
+public class SearchView extends ViewLinearLayout implements View.OnClickListener {
 
-    /**
-     * 输入框
-     */
-    private EditText etInput;
+    View rootView;
 
-    /**
-     * 删除键
-     */
-    private ImageView ivDelete;
-
-    /**
-     * 返回按钮
-     */
-    private Button btnBack;
-
-    /**
-     * 上下文对象
-     */
-    private Context mContext;
-
-    /**
-     * 弹出列表
-     */
-    private ListView lvTips;
-
-    /**
-     * 提示adapter （推荐adapter）
-     */
-    private ArrayAdapter<String> mHintAdapter;
-
-    /**
-     * 自动补全adapter 只显示名字
-     */
-    private ArrayAdapter<String> mAutoCompleteAdapter;
-
-    /**
-     * 搜索回调接口
-     */
+    // 输入框
+    EditText et_input;
+    // 删除键
+    ImageView iv_delete;
+    // 返回按钮
+    Button btn_back;
+    // 上下文对象
+    Context mContext;
+    // 弹出列表
+    ListView lv_hint;
+    // 提示Adapter
+    ArrayAdapter<String> mHintAdapter;
+    // 自动补全adapter 只显示名字
+    ArrayAdapter<String> mAutoCompleteAdapter;
+    // 搜索回调接口
     private SearchViewListener mListener;
 
     /**
@@ -79,40 +57,40 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     public SearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.view_search, this);
+        rootView = LayoutInflater.from(context).inflate(R.layout.view_search, this);
         initViews();
     }
 
     private void initViews() {
-        etInput = (EditText) findViewById(R.id.search_et_input);
-        ivDelete = (ImageView) findViewById(R.id.search_iv_delete);
-        btnBack = (Button) findViewById(R.id.search_btn_back);
-        lvTips = (ListView) findViewById(R.id.search_lv_tips);
+        et_input = $(R.id.et_input);
+        iv_delete = $(R.id.iv_delete);
+        btn_back = $(R.id.btn_back);
+        lv_hint = $(R.id.lv_hint);
 
-        lvTips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_hint.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //set edit text
-                String text = lvTips.getAdapter().getItem(i).toString();
-                etInput.setText(text);
-                etInput.setSelection(text.length());
-                //hint list view gone and result list view show
-                lvTips.setVisibility(View.GONE);
+                //Set Edit Text
+                String text = lv_hint.getAdapter().getItem(i).toString();
+                et_input.setText(text);
+                et_input.setSelection(text.length());
+                //Hint ListView Gone And Result ListView Show
+                lv_hint.setVisibility(View.GONE);
                 notifyStartSearching(text);
             }
         });
 
-        ivDelete.setOnClickListener(this);
-        btnBack.setOnClickListener(this);
+        iv_delete.setOnClickListener(this);
+        btn_back.setOnClickListener(this);
 
-        etInput.addTextChangedListener(new EditChangedListener());
-        etInput.setOnClickListener(this);
-        etInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        et_input.addTextChangedListener(new EditChangedListener());
+        et_input.setOnClickListener(this);
+        et_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    lvTips.setVisibility(GONE);
-                    notifyStartSearching(etInput.getText().toString());
+                    lv_hint.setVisibility(GONE);
+                    notifyStartSearching(et_input.getText().toString());
                 }
                 return true;
             }
@@ -126,7 +104,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
      */
     private void notifyStartSearching(String text) {
         if (mListener != null) {
-            mListener.onSearch(etInput.getText().toString());
+            mListener.onSearch(et_input.getText().toString());
         }
         //隐藏软键盘
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -138,8 +116,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
      */
     public void setTipsHintAdapter(ArrayAdapter<String> adapter) {
         this.mHintAdapter = adapter;
-        if (lvTips.getAdapter() == null) {
-            lvTips.setAdapter(mHintAdapter);
+        if (lv_hint.getAdapter() == null) {
+            lv_hint.setAdapter(mHintAdapter);
         }
     }
 
@@ -159,21 +137,21 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if (!"".equals(charSequence.toString())) {
-                ivDelete.setVisibility(VISIBLE);
-                lvTips.setVisibility(VISIBLE);
-                if (mAutoCompleteAdapter != null && lvTips.getAdapter() != mAutoCompleteAdapter) {
-                    lvTips.setAdapter(mAutoCompleteAdapter);
+                iv_delete.setVisibility(VISIBLE);
+                lv_hint.setVisibility(VISIBLE);
+                if (mAutoCompleteAdapter != null && lv_hint.getAdapter() != mAutoCompleteAdapter) {
+                    lv_hint.setAdapter(mAutoCompleteAdapter);
                 }
                 //更新autoComplete数据
                 if (mListener != null) {
                     mListener.onRefreshAutoComplete(charSequence + "");
                 }
             } else {
-                ivDelete.setVisibility(GONE);
+                iv_delete.setVisibility(GONE);
                 if (mHintAdapter != null) {
-                    lvTips.setAdapter(mHintAdapter);
+                    lv_hint.setAdapter(mHintAdapter);
                 }
-                lvTips.setVisibility(GONE);
+                lv_hint.setVisibility(GONE);
             }
 
         }
@@ -186,20 +164,20 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.search_et_input) {
-            lvTips.setVisibility(VISIBLE);
+        if (id == R.id.et_input) {
+            lv_hint.setVisibility(VISIBLE);
         }
-        if (id == R.id.search_iv_delete) {
-            etInput.setText("");
-            ivDelete.setVisibility(GONE);
+        if (id == R.id.iv_delete) {
+            et_input.setText("");
+            iv_delete.setVisibility(GONE);
         }
-        if (id == R.id.search_btn_back) {
+        if (id == R.id.btn_back) {
             ((Activity) mContext).finish();
         }
     }
 
     /**
-     * search view回调方法
+     * SearchView 回调方法
      */
     public interface SearchViewListener {
 
@@ -217,10 +195,10 @@ public class SearchView extends LinearLayout implements View.OnClickListener {
          */
         void onSearch(String text);
 
-        //        /**
-        //         * 提示列表项点击时回调方法 (提示/自动补全)
-        //         */
-        //        void onTipsItemClick(String text);
+        /**
+         * 提示列表项点击时回调方法 (提示/自动补全)
+         */
+        // void onTipsItemClick(String text);
     }
 
 }

@@ -14,13 +14,19 @@ public class ImageLoader {
 
     public static void with(ImageView imageView, String imageUrl, int defImageView, boolean circle, boolean centerCrop) {
         DrawableRequestBuilder drawableRequestBuilder = Glide.with(imageView.getContext()).load(imageUrl);
-        drawableRequestBuilder.diskCacheStrategy(DiskCacheStrategy.SOURCE);
-        drawableRequestBuilder.placeholder(defImageView);
-        drawableRequestBuilder.error(defImageView);
 
         if (centerCrop) {
             drawableRequestBuilder.centerCrop();
         }
+
+        drawableRequestBuilder.diskCacheStrategy(DiskCacheStrategy.ALL);
+
+        if (defImageView != 0) {
+       		drawableRequestBuilder.placeholder(defImageView);
+        	drawableRequestBuilder.error(defImageView);
+        }
+
+        drawableRequestBuilder.crossFade();
 
         if (circle) {
             drawableRequestBuilder.transform(new GlideCircleTransform(imageView.getContext()));
@@ -34,10 +40,7 @@ public class ImageLoader {
     }
 
     public static void with(ImageView imageView, String imageUrl) {
-        DrawableRequestBuilder drawableRequestBuilder = Glide.with(imageView.getContext()).load(imageUrl);
-        drawableRequestBuilder.diskCacheStrategy(DiskCacheStrategy.ALL);
-        // drawableRequestBuilder.centerCrop();
-        drawableRequestBuilder.into(imageView);
+        with(imageView, imageUrl, 0, false, false);
     }
 
 }

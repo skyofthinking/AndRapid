@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="#eee"
+              android:background="@color/grey_200"
               android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eb4f38"
+        android:background="@color/transparent"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -17,52 +17,51 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/search_et_input"
+                android:id="@+id/et_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/margin5"
                 android:background="@drawable/shape_search_edittext"
                 android:drawableLeft="@drawable/ic_search_black_24dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/padding5"
                 android:hint="请输入关键字"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/textSize16"/>
 
             <ImageView
-                android:id="@+id/search_iv_delete"
+                android:id="@+id/iv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/margin20"
                 android:src="@drawable/ic_delete_black_24dp"
                 android:visibility="gone"/>
         </FrameLayout>
 
         <Button
-            android:id="@+id/search_btn_back"
-            android:layout_width="@dimen/width40"
-            android:layout_height="@dimen/height50"
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/width50"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/margin5"
+            android:layout_marginRight="@dimen/margin5"
+            android:layout_marginTop="@dimen/margin5"
             android:background="@drawable/selector_search_btn"
-            android:text="返回"
+            android:text="@string/txt_cancel"
             android:textColor="@color/white"/>
     </LinearLayout>
 
     <ListView
-        android:id="@+id/search_lv_tips"
+        android:id="@+id/lv_hint"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/lv_search_tips_bg"
+        android:layout_height="@dimen/height200"
+        android:layout_marginBottom="@dimen/margin5"
+        android:layout_marginLeft="@dimen/margin5"
+        android:layout_marginRight="@dimen/margin5"
+        android:background="@drawable/layer_listview_bg"
         android:visibility="gone">
-
     </ListView>
 
 </LinearLayout>

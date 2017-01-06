@@ -8,9 +8,9 @@
     </item>
     <!-- 主体背景颜色值 -->
     <item
-        android:bottom="2dp"
-        android:left="2dp"
-        android:right="2dp">
+        android:bottom="@dimen/width1"
+        android:left="@dimen/width1"
+        android:right="@dimen/width1">
         <shape>
             <solid android:color="#fff"/>
         </shape>
