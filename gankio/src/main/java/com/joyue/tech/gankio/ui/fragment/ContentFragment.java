@@ -91,13 +91,15 @@ public class ContentFragment extends RapidFragment implements GanhuoContract.Vie
             @Override
             public void onItemClick(View view, int position) {
                 ContentSection contentSection = (ContentSection) mQuickAdapter.getData().get(position);
-                DayResult dayResult = contentSection.t;
+                if (!contentSection.isHeader) {
+                    DayResult dayResult = contentSection.t;
 
-                Bundle mBundle = new Bundle();
-                TLog.d(TAG, "URL " + dayResult.getUrl());
-                mBundle.putString(BaseConstant.IntentConst.URL, dayResult.getUrl());
+                    Bundle mBundle = new Bundle();
+                    TLog.d(TAG, "URL " + dayResult.getUrl());
+                    mBundle.putString(BaseConstant.IntentConst.URL, dayResult.getUrl());
 
-                UIManager.startActivity(mContext, RapidWebViewActivity.class, mBundle);
+                    UIManager.startActivity(mContext, RapidWebViewActivity.class, mBundle);
+                }
             }
         });
         mQuickAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {

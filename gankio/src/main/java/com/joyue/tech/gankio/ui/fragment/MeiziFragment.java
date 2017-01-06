@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.joyue.tech.core.ui.activity.ViewPicActivity;
 import com.joyue.tech.core.ui.fragment.RapidListFragment;
 import com.joyue.tech.gankio.R;
 import com.joyue.tech.gankio.adapter.MeiziAdapter;
@@ -53,6 +54,8 @@ public class MeiziFragment extends RapidListFragment implements BaseQuickAdapter
         mQuickAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Result item = (Result) mQuickAdapter.getData().get(position);
+                ViewPicActivity.openActivity(mContext, view, item.getUrl());
                 Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
