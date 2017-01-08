@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -17,5 +18,18 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
     </android.support.v7.widget.RecyclerView>
+
+    <me.next.tagview.TagCloudView
+        android:id="@+id/tag_cloud_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_tagcloudview_light_selector"
+        app:tcvBorder="8dp"
+        app:tcvCanTagClick="true"
+        app:tcvItemBorderHorizontal="8dp"
+        app:tcvItemBorderVertical="6dp"
+        app:tcvSingleLine="false"
+        app:tcvTagResId="@layout/item_tag_style"
+        app:tcvTextColor="#123455"/>
 
 </LinearLayout>

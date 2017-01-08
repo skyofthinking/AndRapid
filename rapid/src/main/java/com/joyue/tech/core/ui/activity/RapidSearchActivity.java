@@ -15,11 +15,13 @@ import com.joyue.tech.core.widget.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.next.tagview.TagCloudView;
+
 /**
  * @author JiangYH
  * @desc 搜索界面
  */
-public class RapidSearchActivity extends RapidActivity implements SearchView.SearchViewListener {
+public class RapidSearchActivity extends RapidActivity implements SearchView.SearchViewListener, TagCloudView.OnTagClickListener {
 
     // 搜索结果列表view
     RecyclerView lvResults;
@@ -77,6 +79,21 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
         //设置adapter
         searchView.setTipsHintAdapter(hintAdapter);
         searchView.setAutoCompleteAdapter(autoCompleteAdapter);
+
+        List<String> tags = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            tags.add("标签" + i);
+        }
+
+        TagCloudView tagCloudView1 = (TagCloudView) findViewById(R.id.tag_cloud_view);
+        tagCloudView1.setTags(tags);
+        tagCloudView1.setOnTagClickListener(this);
+        tagCloudView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "TagView onClick", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initListener() {
@@ -209,4 +226,12 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
         Toast.makeText(this, "完成搜素", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onTagClick(int position) {
+        if (position == -1) {
+            Toast.makeText(this, "点击末尾文字", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "点击 position : " + position, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

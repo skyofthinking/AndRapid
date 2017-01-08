@@ -16,7 +16,6 @@ import android.view.View;
 import com.joyue.tech.core.rx.Events;
 import com.joyue.tech.core.rx.RxBus;
 import com.joyue.tech.core.ui.UIManager;
-import com.joyue.tech.core.ui.activity.RapidSearchActivity;
 import com.joyue.tech.core.ui.activity.RapidToolbarActivity;
 import com.joyue.tech.core.utils.FragmentUtils;
 import com.joyue.tech.core.utils.SPUtils;
@@ -26,6 +25,7 @@ import com.joyue.tech.gankio.mvp.history.HistoryContract;
 import com.joyue.tech.gankio.mvp.history.HistoryPresenter;
 import com.joyue.tech.gankio.rx.EventsWhat;
 import com.joyue.tech.gankio.ui.activity.AboutActivity;
+import com.joyue.tech.gankio.ui.activity.ExRapidSearchActivity;
 import com.joyue.tech.gankio.ui.activity.SettingsActivity;
 import com.joyue.tech.gankio.ui.fragment.GanhuoFragment;
 import com.joyue.tech.gankio.ui.fragment.HistoryFragment;
@@ -113,7 +113,7 @@ public class MainActivity extends RapidToolbarActivity implements NavigationView
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_search:
-                UIManager.startActivity(mContext, RapidSearchActivity.class);
+                UIManager.startActivity(mContext, ExRapidSearchActivity.class);
                 ToastUtils.show("Search");
                 break;
             case R.id.action_share:
