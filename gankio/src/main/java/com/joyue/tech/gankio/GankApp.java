@@ -2,6 +2,8 @@ package com.joyue.tech.gankio;
 
 import com.joyue.tech.core.RapidApp;
 import com.joyue.tech.gankio.constants.Constant;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.weavey.loading.lib.LoadingLayout;
 
 /**
@@ -33,5 +35,12 @@ public class GankApp extends RapidApp {
                 .setReloadButtonTextColor(R.color.gray)
                 .setReloadButtonWidthAndHeight(150, 40)
                 .setLoadingPageLayout(R.layout.view_loading);
+    }
+
+    @Override
+    public void initDB() {
+        // FlowManager.init(new FlowConfig.Builder(this).build());
+        FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
+
     }
 }

@@ -89,12 +89,6 @@ dependencies {
     compile rootProject.ext.dependencies["loadinglayout"]
     compile rootProject.ext.dependencies["tagcloudview"]
 
-    // DB
-    compile rootProject.ext.dependencies["sqlbrite"]
-
-    // annotationProcessor 'com.google.auto.value:auto-value:1.3'
-    // provided 'com.jakewharton.auto.value:auto-value-annotations:1.3'
-
     // Icon
     compile rootProject.ext.dependencies["iconics-core"]
     compile rootProject.ext.dependencies["google-material-typeface"]
