@@ -9,21 +9,15 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  * @author JiangYH
  */
 @Table(database = AppDatabase.class)
-public class UserFav extends BaseModel {
+public class SearchKey extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
     public long id;
 
     @Column
-    public String vin;
+    public String key; // 搜索关键字
 
     @Column
-    public String make;
-
-    @Column
-    public String model;
-
-    @Column
-    public int year;
+    public String count; //  搜索次数
 
 }

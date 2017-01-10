@@ -1,15 +1,24 @@
-package com.joyue.tech.core.ui.activity;
+package com.joyue.tech.gankio.ui.activity;
 
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.joyue.tech.core.R;
+import com.joyue.tech.gankio.R;
 import com.joyue.tech.core.test.Bean;
 import com.joyue.tech.core.test.SearchAdapter;
+import com.joyue.tech.core.ui.activity.RapidActivity;
 import com.joyue.tech.core.widget.SearchView;
 
 import java.util.ArrayList;
@@ -202,7 +211,8 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
     @Override
     public void onRefreshAutoComplete(String text) {
         //更新数据
-        getAutoCompleteData(text);
+        //getAutoCompleteData(text);
+        showPopupWindow(searchView);
     }
 
     /**
@@ -212,18 +222,19 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
      */
     @Override
     public void onSearch(String text) {
-        //更新result数据
-        getResultData(text);
-        lvResults.setVisibility(View.VISIBLE);
-        //第一次获取结果 还未配置适配器
-        if (lvResults.getAdapter() == null) {
-            //获取搜索数据 设置适配器
-            lvResults.setAdapter(resultAdapter);
-        } else {
-            //更新搜索数据
-            resultAdapter.notifyDataSetChanged();
-        }
-        Toast.makeText(this, "完成搜素", Toast.LENGTH_SHORT).show();
+//        //更新result数据
+//        getResultData(text);
+//        lvResults.setVisibility(View.VISIBLE);
+//        //第一次获取结果 还未配置适配器
+//        if (lvResults.getAdapter() == null) {
+//            //获取搜索数据 设置适配器
+//            lvResults.setAdapter(resultAdapter);
+//        } else {
+//            //更新搜索数据
+//            resultAdapter.notifyDataSetChanged();
+//        }
+//        Toast.makeText(this, "完成搜素", Toast.LENGTH_SHORT).show();
+        showPopupWindow(searchView);
     }
 
     @Override
@@ -233,5 +244,39 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
         } else {
             Toast.makeText(this, "点击 position : " + position, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private LinearLayout layout;
+    private ListView listView;
+    private PopupWindow popupWindow;
+    private String title[] = { "1", "2", "3", "4", "5" };
+    public void showPopupWindow(View parent) {
+        //加载布局
+        layout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.dlg_search_list, null);
+        //找到布局的控件
+        listView = (ListView) layout.findViewById(R.id.lv_dialog);
+        //设置适配器
+        listView.setAdapter(new ArrayAdapter<String>(mContext, R.layout.view_search_list_text, R.id.tv_text, title));
+        // 实例化popupWindow
+        popupWindow = new PopupWindow(layout, 300, 500);
+        //控制键盘是否可以获得焦点
+        popupWindow.setFocusable(true);
+        //设置popupWindow弹出窗体的背景
+        popupWindow.setBackgroundDrawable(new BitmapDrawable(null, ""));
+        WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        @SuppressWarnings("deprecation")
+        //获取xoff
+                int xpos = manager.getDefaultDisplay().getWidth() / 2 - popupWindow.getWidth() / 2;
+        //xoff,yoff基于anchor的左下角进行偏移。
+        popupWindow.showAsDropDown(parent, xpos, 0);
+        //监听
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                //关闭popupWindow
+                popupWindow.dismiss();
+                popupWindow = null;
+            }
+        });
     }
 }
