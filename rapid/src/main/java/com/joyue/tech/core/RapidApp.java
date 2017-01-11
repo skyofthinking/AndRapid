@@ -10,7 +10,6 @@ import android.os.StrictMode;
 
 import com.joyue.tech.core.http.HttpConst;
 import com.joyue.tech.core.utils.SPUtils;
-import com.mikepenz.iconics.Iconics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,9 +65,6 @@ public class RapidApp extends Application {
 
         // 初始化地图
         initMap();
-
-        // 初始化图标
-        Iconics.init(mContext);
     }
 
     public void initRecovery() {

@@ -3,12 +3,9 @@ package com.joyue.tech.core.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.mikepenz.iconics.context.IconicsContextWrapper;
-import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -26,8 +23,6 @@ public abstract class RapidActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LayoutInflaterCompat.setFactory(getLayoutInflater(), new IconicsLayoutInflater(getDelegate()));
-
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
@@ -60,11 +55,6 @@ public abstract class RapidActivity extends RxAppCompatActivity {
         return super.dispatchTouchEvent(event);
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
-    }
-
     protected <T extends View> T $(int id) {
         return (T) super.findViewById(id);
     }
@@ -82,6 +72,5 @@ public abstract class RapidActivity extends RxAppCompatActivity {
         Intent intent = new Intent(this, clazz);
         intent.putExtras(extras);
         startActivity(intent);
-
     }
 }

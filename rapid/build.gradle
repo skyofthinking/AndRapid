@@ -89,10 +89,6 @@ dependencies {
     compile rootProject.ext.dependencies["loadinglayout"]
     compile rootProject.ext.dependencies["tagcloudview"]
 
-    // Icon
-    compile rootProject.ext.dependencies["iconics-core"]
-    compile rootProject.ext.dependencies["google-material-typeface"]
-
     // Utils
     compile rootProject.ext.dependencies["utilcode"]
 }
