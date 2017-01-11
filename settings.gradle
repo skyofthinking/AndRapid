@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':leancloud'
 include ':sample'
 include ':rapid'
 include ':third'

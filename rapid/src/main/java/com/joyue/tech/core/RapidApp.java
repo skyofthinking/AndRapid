@@ -65,6 +65,8 @@ public class RapidApp extends Application {
 
         // 初始化地图
         initMap();
+
+        initThird();
     }
 
     public void initRecovery() {
@@ -111,6 +113,10 @@ public class RapidApp extends Application {
     }
 
     public void initMap() {
+    }
+
+    // 第三方初始化
+    public void initThird() {
     }
 
     public void enabledStrictMode() {

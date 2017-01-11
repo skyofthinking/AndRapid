@@ -1,5 +1,7 @@
 package com.joyue.tech.gankio;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 import com.joyue.tech.core.RapidApp;
 import com.joyue.tech.gankio.constants.Constant;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -41,6 +43,14 @@ public class GankApp extends RapidApp {
     public void initDB() {
         // FlowManager.init(new FlowConfig.Builder(this).build());
         FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
+    }
 
+    @Override
+    public void initThird() {
+        AVOSCloud.initialize(this, "qwOAQM2GtyhM8CyvooeruXSs-gzGzoHsz", "H1qGav0G0ULlsvWd0kMkLJLR");
+
+        AVObject testObject = new AVObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
     }
 }

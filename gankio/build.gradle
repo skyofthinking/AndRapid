@@ -55,4 +55,5 @@ dependencies {
     compile rootProject.ext.dependencies["dbflow"]
 
     compile project(':rapid')
+    compile project(':leancloud')
 }
