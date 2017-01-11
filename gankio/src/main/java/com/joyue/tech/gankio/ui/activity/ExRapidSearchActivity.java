@@ -21,8 +21,6 @@ public class ExRapidSearchActivity extends RapidSearchActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        testdb();
     }
 
     public void testdb() {

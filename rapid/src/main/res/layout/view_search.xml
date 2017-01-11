@@ -17,7 +17,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/et_input"
+                android:id="@+id/et_search_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -41,7 +41,7 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_cancel"
             android:layout_width="@dimen/width50"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -52,16 +52,5 @@
             android:text="@string/txt_cancel"
             android:textColor="@color/white"/>
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/lv_hint"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height200"
-        android:layout_marginBottom="@dimen/margin5"
-        android:layout_marginLeft="@dimen/margin5"
-        android:layout_marginRight="@dimen/margin5"
-        android:background="@drawable/layer_listview_bg"
-        android:visibility="gone">
-    </ListView>
 
 </LinearLayout>

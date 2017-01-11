@@ -13,6 +13,14 @@ public class BaseConstant {
         public static String SUCCESS = "0";
     }
 
+    public static final class Search {
+        private Search() {
+        }
+
+        public static int DEFAULT_HOT_SIZE = 6; // 搜索热词数量
+        public static int DEFAULT_HIS_SIZE = 9; // 搜索历史数量
+    }
+
     public static final class ViewLayout {
         public static String ERROR_TITLE = "网络连接异常";
         public static String ERROR_CONTEXT = "请检查网络后重试";
@@ -28,6 +36,7 @@ public class BaseConstant {
         }
 
         public static int TWO = 2;
+        public static int THREE = 3;
     }
 
     public static final class IntentConst {

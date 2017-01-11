@@ -7,29 +7,106 @@
               android:orientation="vertical">
 
     <com.joyue.tech.core.widget.SearchView
-        android:id="@+id/main_search_layout"
+        android:id="@+id/sv_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.joyue.tech.core.widget.SearchView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_lv_search_results"
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.fragment.ContentFragment">
 
-    <me.next.tagview.TagCloudView
-        android:id="@+id/tag_cloud_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_tagcloudview_light_selector"
-        app:tcvBorder="8dp"
-        app:tcvCanTagClick="true"
-        app:tcvItemBorderHorizontal="8dp"
-        app:tcvItemBorderVertical="6dp"
-        app:tcvSingleLine="false"
-        app:tcvTagResId="@layout/item_tag_style"
-        app:tcvTextColor="#123455"/>
+        <com.weavey.loading.lib.LoadingLayout
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isFirstVisible="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_input_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grey_100"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大家都在搜"
+                            android:textColor="@color/grey_500"
+                            android:textSize="@dimen/textSize12"
+                            tools:text="大家都在搜"/>
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_search_hot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/layer_listview_bg"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grey_100"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="历史搜索"
+                            android:textColor="@color/grey_500"
+                            android:textSize="@dimen/textSize12"
+                            tools:text="历史搜索"/>
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_search_his"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_input_enter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_search_hint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.weavey.loading.lib.LoadingLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

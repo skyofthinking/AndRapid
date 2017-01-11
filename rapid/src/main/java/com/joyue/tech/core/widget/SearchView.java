@@ -10,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joyue.tech.core.R;
@@ -26,24 +23,13 @@ import com.joyue.tech.core.R;
  */
 public class SearchView extends ViewLinearLayout implements View.OnClickListener {
 
-    View rootView;
-
-    // 输入框
-    EditText et_input;
-    // 删除键
-    ImageView iv_delete;
-    // 返回按钮
-    Button btn_back;
-    // 上下文对象
-    Context mContext;
-    // 弹出列表
-    ListView lv_hint;
-    // 提示Adapter
-    ArrayAdapter<String> mHintAdapter;
-    // 自动补全adapter 只显示名字
-    ArrayAdapter<String> mAutoCompleteAdapter;
-    // 搜索回调接口
-    private SearchViewListener mListener;
+    View rootView; // View
+    EditText et_search_key; // 输入框
+    ImageView iv_delete; // 删除键
+    Button btn_cancel; // 返回按钮
+    Context mContext; // 上下文对象
+    View autoCompView;
+    SearchViewListener mListener;  // 搜索回调接口
 
     /**
      * 设置搜索回调接口
@@ -58,39 +44,24 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
         super(context, attrs);
         mContext = context;
         rootView = LayoutInflater.from(context).inflate(R.layout.view_search, this);
-        initViews();
+        initView();
     }
 
-    private void initViews() {
-        et_input = $(R.id.et_input);
+    private void initView() {
+        et_search_key = $(R.id.et_search_key);
         iv_delete = $(R.id.iv_delete);
-        btn_back = $(R.id.btn_back);
-        lv_hint = $(R.id.lv_hint);
-
-        lv_hint.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Set Edit Text
-                String text = lv_hint.getAdapter().getItem(i).toString();
-                et_input.setText(text);
-                et_input.setSelection(text.length());
-                //Hint ListView Gone And Result ListView Show
-                lv_hint.setVisibility(View.GONE);
-                notifyStartSearching(text);
-            }
-        });
+        btn_cancel = $(R.id.btn_cancel);
 
         iv_delete.setOnClickListener(this);
-        btn_back.setOnClickListener(this);
+        btn_cancel.setOnClickListener(this);
 
-        et_input.addTextChangedListener(new EditChangedListener());
-        et_input.setOnClickListener(this);
-        et_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        et_search_key.addTextChangedListener(new EditChangedListener());
+        et_search_key.setOnClickListener(this);
+        et_search_key.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    lv_hint.setVisibility(GONE);
-                    notifyStartSearching(et_input.getText().toString());
+                    notifyStartSearching(et_search_key.getText().toString());
                 }
                 return true;
             }
@@ -104,28 +75,18 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
      */
     private void notifyStartSearching(String text) {
         if (mListener != null) {
-            mListener.onSearch(et_input.getText().toString());
+            mListener.onSearch(et_search_key.getText().toString());
         }
-        //隐藏软键盘
+        // 隐藏软键盘
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**
-     * 设置热搜版提示 adapter
+     * 设置自动补全Adapter
      */
-    public void setTipsHintAdapter(ArrayAdapter<String> adapter) {
-        this.mHintAdapter = adapter;
-        if (lv_hint.getAdapter() == null) {
-            lv_hint.setAdapter(mHintAdapter);
-        }
-    }
-
-    /**
-     * 设置自动补全adapter
-     */
-    public void setAutoCompleteAdapter(ArrayAdapter<String> adapter) {
-        this.mAutoCompleteAdapter = adapter;
+    public void setAutoCompleteView(View autoCompView) {
+        this.autoCompView = autoCompView;
     }
 
     private class EditChangedListener implements TextWatcher {
@@ -138,22 +99,19 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if (!"".equals(charSequence.toString())) {
                 iv_delete.setVisibility(VISIBLE);
-                lv_hint.setVisibility(VISIBLE);
-                if (mAutoCompleteAdapter != null && lv_hint.getAdapter() != mAutoCompleteAdapter) {
-                    lv_hint.setAdapter(mAutoCompleteAdapter);
+                if (autoCompView != null) {
+                    // autoCompView.setVisibility(VISIBLE);
                 }
-                //更新autoComplete数据
+                //更新AutoComplete数据
                 if (mListener != null) {
                     mListener.onRefreshAutoComplete(charSequence + "");
                 }
             } else {
                 iv_delete.setVisibility(GONE);
-                if (mHintAdapter != null) {
-                    lv_hint.setAdapter(mHintAdapter);
+                if (autoCompView != null) {
+                    // autoCompView.setVisibility(GONE);
                 }
-                lv_hint.setVisibility(GONE);
             }
-
         }
 
         @Override
@@ -164,14 +122,12 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.et_input) {
-            lv_hint.setVisibility(VISIBLE);
-        }
         if (id == R.id.iv_delete) {
-            et_input.setText("");
+            et_search_key.setText("");
+            mListener.onRefreshAutoComplete("");
             iv_delete.setVisibility(GONE);
         }
-        if (id == R.id.btn_back) {
+        if (id == R.id.btn_cancel) {
             ((Activity) mContext).finish();
         }
     }
@@ -180,7 +136,6 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
      * SearchView 回调方法
      */
     public interface SearchViewListener {
-
         /**
          * 更新自动补全内容
          *
@@ -194,11 +149,6 @@ public class SearchView extends ViewLinearLayout implements View.OnClickListener
          * @param text 传入输入框的文本
          */
         void onSearch(String text);
-
-        /**
-         * 提示列表项点击时回调方法 (提示/自动补全)
-         */
-        // void onTipsItemClick(String text);
     }
 
 }

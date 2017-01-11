@@ -1,68 +1,67 @@
 package com.joyue.tech.gankio.ui.activity;
 
-import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.joyue.tech.gankio.R;
-import com.joyue.tech.core.test.Bean;
-import com.joyue.tech.core.test.SearchAdapter;
+import com.joyue.tech.core.constant.BaseConstant;
 import com.joyue.tech.core.ui.activity.RapidActivity;
+import com.joyue.tech.core.utils.RecyclerViewUtils;
+import com.joyue.tech.core.utils.StrKit;
+import com.joyue.tech.core.utils.TLog;
+import com.joyue.tech.core.utils.ToastUtils;
 import com.joyue.tech.core.widget.SearchView;
+import com.joyue.tech.gankio.R;
+import com.joyue.tech.gankio.adapter.HistoryAdapter;
+import com.joyue.tech.gankio.db.SearchKey;
+import com.raizlabs.android.dbflow.list.FlowQueryList;
+import com.raizlabs.android.dbflow.sql.language.OrderBy;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.next.tagview.TagCloudView;
+import butterknife.BindView;
 
 /**
  * @author JiangYH
  * @desc 搜索界面
  */
-public class RapidSearchActivity extends RapidActivity implements SearchView.SearchViewListener, TagCloudView.OnTagClickListener {
+public class RapidSearchActivity extends RapidActivity implements SearchView.SearchViewListener {
 
-    // 搜索结果列表view
-    RecyclerView lvResults;
-    // 搜索view
-    SearchView searchView;
-    // 热搜框列表adapter
-    ArrayAdapter<String> hintAdapter;
-    // 自动补全列表adapter
-    ArrayAdapter<String> autoCompleteAdapter;
-    // 搜索结果列表adapter
-    SearchAdapter resultAdapter;
-    // 数据库数据，总数据
-    List<Bean> dbData;
-    // 热搜版数据
-    List<String> hintData;
-    // 搜索过程中自动补全数据
-    List<String> autoCompleteData;
-    // 搜索结果的数据
-    List<Bean> resultData;
-    // 默认提示框显示项的个数
-    static int DEFAULT_HINT_SIZE = 4;
-    // 提示框显示项的个数
-    static int hintSize = DEFAULT_HINT_SIZE;
+    @BindView(R.id.rv_search_hot)
+    RecyclerView rv_search_hot; // 搜索热搜列表
+    @BindView(R.id.rv_search_his)
+    RecyclerView rv_search_his; // 搜索历史列表
+    @BindView(R.id.rv_search_hint)
+    RecyclerView rv_search_hint; // 搜索提示列表
+    @BindView(R.id.loadinglayout)
+    LoadingLayout loadinglayout;
+    @BindView(R.id.ll_input_clear)
+    LinearLayout ll_input_clear;
+    @BindView(R.id.ll_input_enter)
+    LinearLayout ll_input_enter;
 
-    /**
-     * 设置提示框显示项的个数
-     *
-     * @param hintSize 提示框显示个数
-     */
-    public static void setHintSize(int hintSize) {
-        RapidSearchActivity.hintSize = hintSize;
-    }
+    @BindView(R.id.sv_search)
+    SearchView sv_search; // 搜索框
+
+    BaseQuickAdapter<String> mHotAdapter; // 热搜列表Adapter
+    BaseQuickAdapter<String> mHisAdapter; // 历史列表Adapter
+    BaseQuickAdapter<String> mHintAdapter; // 自动补全列表Adapter
+
+    List<SearchKey> mHotList; // 热搜列表
+    List<SearchKey> mHisList; // 历史列表
+    List<SearchKey> mHintList; // 自动补全列表
+
+    List<String> mHotData;
+    List<String> mHisData;
+    List<String> mHintData;
+
+
+    List<String> autoCompleteData; // 搜索过程中自动补全数据
 
     @Override
     public int getLayoutId() {
@@ -72,50 +71,41 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
     @Override
     public void initView(Bundle savedInstanceState) {
         initData();
-        initViews();
-
+        initView();
         initListener();
+
+        loadinglayout.setStatus(LoadingLayout.Success);
     }
 
     /**
      * 初始化视图
      */
-    private void initViews() {
-        lvResults = (RecyclerView) findViewById(R.id.main_lv_search_results);
-        searchView = (SearchView) findViewById(R.id.main_search_layout);
-        //设置监听
-        searchView.setSearchViewListener(this);
-        //设置adapter
-        searchView.setTipsHintAdapter(hintAdapter);
-        searchView.setAutoCompleteAdapter(autoCompleteAdapter);
+    private void initView() {
+        // 设置监听
+        sv_search.setSearchViewListener(this);
+        sv_search.setAutoCompleteView(rv_search_hint);
 
-        List<String> tags = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            tags.add("标签" + i);
-        }
+        RecyclerViewUtils.initRecyclerViewGridLayout(rv_search_hot, mContext, BaseConstant.Column.TWO);
+        rv_search_hot.setAdapter(mHotAdapter);
 
-        TagCloudView tagCloudView1 = (TagCloudView) findViewById(R.id.tag_cloud_view);
-        tagCloudView1.setTags(tags);
-        tagCloudView1.setOnTagClickListener(this);
-        tagCloudView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "TagView onClick", Toast.LENGTH_SHORT).show();
-            }
-        });
+        RecyclerViewUtils.initRecyclerViewLinearLayout(rv_search_his, mContext);
+        rv_search_his.setAdapter(mHisAdapter);
+
+        RecyclerViewUtils.initRecyclerViewLinearLayout(rv_search_hint, mContext);
+        rv_search_hint.setAdapter(mHintAdapter);
     }
 
     private void initListener() {
-        resultAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+        mHotAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mContext, "点击了" + position, Toast.LENGTH_SHORT).show();
+                ToastUtils.show("position " + position);
             }
         });
-        resultAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
+        mHotAdapter.setOnRecyclerViewItemLongClickListener(new BaseQuickAdapter.OnRecyclerViewItemLongClickListener() {
             @Override
             public boolean onItemLongClick(View view, int position) {
-                Toast.makeText(mContext, "长按了" + position, Toast.LENGTH_SHORT).show();
+                ToastUtils.show("position " + position);
                 return true;
             }
         });
@@ -125,94 +115,87 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
      * 初始化数据
      */
     private void initData() {
-        //从数据库获取数据
-        getDbData();
-        //初始化热搜版数据
-        getHintData();
-        //初始化自动补全数据
-        getAutoCompleteData(null);
-        //初始化搜索结果数据
-        getResultData(null);
+        initHotData();
+
+        initHisData();
+
+        initHintData();
     }
 
-    /**
-     * 获取db 数据
-     */
-    private void getDbData() {
-        int size = 100;
-        dbData = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            dbData.add(new Bean(R.drawable.ic_hot_black_24dp, "android开发必备技能" + (i + 1), "Android自定义view——自定义搜索view", i * 20 + 2 + ""));
+    // 热搜
+    private void initHotData() {
+        mHotData = new ArrayList<>();
+        for (int i = 0; i < BaseConstant.Search.DEFAULT_HOT_SIZE; i++) {
+            mHotData.add("热搜" + i + "：Android自定义View");
         }
+        mHotAdapter = new HistoryAdapter(R.layout.item_search, null);
+        mHotAdapter.setNewData(mHotData);
     }
 
-    /**
-     * 获取热搜版data 和adapter
-     */
-    private void getHintData() {
-        hintData = new ArrayList<>(hintSize);
-        for (int i = 1; i <= hintSize; i++) {
-            hintData.add("热搜版" + i + "：Android自定义View");
+    // 历史
+    private void initHisData() {
+        FlowQueryList<SearchKey> searchKeys = SQLite.select().from(SearchKey.class).orderBy(OrderBy.fromString("id").descending()).flowQueryList();
+        mHisData = new ArrayList<>();
+        for (SearchKey searchKey : searchKeys) {
+            mHisData.add(searchKey.getKey());
         }
-        hintAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, hintData);
+        TLog.i(TAG, "mHisData " + mHisData.size() + " " + mHisData.toString());
+        mHisAdapter = new HistoryAdapter(R.layout.item_search, null);
+        mHisAdapter.setNewData(mHisData);
+    }
+
+    // 提示
+    private void initHintData() {
+        mHintData = new ArrayList<>();
+        for (int i = 0; i < BaseConstant.Search.DEFAULT_HIS_SIZE; i++) {
+            mHintData.add("提示" + i + "：Android自定义View");
+        }
+        mHintAdapter = new HistoryAdapter(R.layout.item_search, null);
+        mHintAdapter.setNewData(mHintData);
     }
 
     /**
-     * 获取自动补全data 和adapter
+     * 获取自动补全
      */
     private void getAutoCompleteData(String text) {
-        if (autoCompleteData == null) {
-            //初始化
-            autoCompleteData = new ArrayList<>(hintSize);
+        if (mHintList == null) {
+            // 初始化
+            mHintList = new ArrayList<>();
         } else {
             // 根据text 获取auto data
-            autoCompleteData.clear();
-            for (int i = 0, count = 0; i < dbData.size() && count < hintSize; i++) {
-                if (dbData.get(i).getTitle().contains(text.trim())) {
-                    autoCompleteData.add(dbData.get(i).getTitle());
-                    count++;
-                }
-            }
+            mHintList.clear();
         }
-        if (autoCompleteAdapter == null) {
-            autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, autoCompleteData);
+        autoCompleteData = new ArrayList();
+        for (int i = 0; i < 3; i++) {
+            autoCompleteData.add("提示" + i);
+        }
+        if (mHintAdapter == null) {
+            mHintAdapter = new HistoryAdapter(R.layout.item_search, null);
+            mHintAdapter.setNewData(autoCompleteData);
         } else {
-            autoCompleteAdapter.notifyDataSetChanged();
+            mHintAdapter.setNewData(autoCompleteData);
+        }
+
+        if (!StrKit.isEmpty(text)) {
+            ll_input_clear.setVisibility(View.GONE);
+            ll_input_enter.setVisibility(View.VISIBLE);
+        } else {
+            ll_input_clear.setVisibility(View.VISIBLE);
+            ll_input_enter.setVisibility(View.GONE);
         }
     }
 
     /**
-     * 获取搜索结果data和adapter
-     */
-    private void getResultData(String text) {
-        if (resultData == null) {
-            // 初始化
-            resultData = new ArrayList<>();
-        } else {
-            resultData.clear();
-            for (int i = 0; i < dbData.size(); i++) {
-                if (dbData.get(i).getTitle().contains(text.trim())) {
-                    resultData.add(dbData.get(i));
-                }
-            }
-        }
-        if (resultAdapter == null) {
-            resultAdapter = new SearchAdapter(R.layout.item_bean_list, resultData);
-        } else {
-            resultAdapter.notifyDataSetChanged();
-        }
-    }
-
-    /**
-     * 当搜索框 文本改变时 触发的回调 ,更新自动补全数据
+     * 当搜索框文本改变时触发的回调 更新自动补全数据
      *
      * @param text
      */
     @Override
     public void onRefreshAutoComplete(String text) {
-        //更新数据
-        //getAutoCompleteData(text);
-        showPopupWindow(searchView);
+        // 更新数据
+        getAutoCompleteData(text);
+
+        initHisData();
     }
 
     /**
@@ -222,61 +205,13 @@ public class RapidSearchActivity extends RapidActivity implements SearchView.Sea
      */
     @Override
     public void onSearch(String text) {
-//        //更新result数据
-//        getResultData(text);
-//        lvResults.setVisibility(View.VISIBLE);
-//        //第一次获取结果 还未配置适配器
-//        if (lvResults.getAdapter() == null) {
-//            //获取搜索数据 设置适配器
-//            lvResults.setAdapter(resultAdapter);
-//        } else {
-//            //更新搜索数据
-//            resultAdapter.notifyDataSetChanged();
-//        }
-//        Toast.makeText(this, "完成搜素", Toast.LENGTH_SHORT).show();
-        showPopupWindow(searchView);
-    }
+        SearchKey searchKey = new SearchKey();
+        searchKey.key = text;
+        searchKey.count = 1;
+        searchKey.save();
 
-    @Override
-    public void onTagClick(int position) {
-        if (position == -1) {
-            Toast.makeText(this, "点击末尾文字", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "点击 position : " + position, Toast.LENGTH_SHORT).show();
-        }
-    }
+        initHisData();
 
-    private LinearLayout layout;
-    private ListView listView;
-    private PopupWindow popupWindow;
-    private String title[] = { "1", "2", "3", "4", "5" };
-    public void showPopupWindow(View parent) {
-        //加载布局
-        layout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.dlg_search_list, null);
-        //找到布局的控件
-        listView = (ListView) layout.findViewById(R.id.lv_dialog);
-        //设置适配器
-        listView.setAdapter(new ArrayAdapter<String>(mContext, R.layout.view_search_list_text, R.id.tv_text, title));
-        // 实例化popupWindow
-        popupWindow = new PopupWindow(layout, 300, 500);
-        //控制键盘是否可以获得焦点
-        popupWindow.setFocusable(true);
-        //设置popupWindow弹出窗体的背景
-        popupWindow.setBackgroundDrawable(new BitmapDrawable(null, ""));
-        WindowManager manager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        @SuppressWarnings("deprecation")
-        //获取xoff
-                int xpos = manager.getDefaultDisplay().getWidth() / 2 - popupWindow.getWidth() / 2;
-        //xoff,yoff基于anchor的左下角进行偏移。
-        popupWindow.showAsDropDown(parent, xpos, 0);
-        //监听
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                //关闭popupWindow
-                popupWindow.dismiss();
-                popupWindow = null;
-            }
-        });
+        rv_search_his.setAdapter(mHisAdapter);
     }
 }
