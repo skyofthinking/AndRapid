@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -29,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.joyue.tech.gankio.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.joyue.tech.core.ui.activity.RapidClickButtonActivity"
             android:theme="@style/AppTheme.NoActionBar"/>

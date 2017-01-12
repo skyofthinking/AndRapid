@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gankio</string>
+    <string name="app_name">GankIO</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -30,4 +30,12 @@
     <!-- About -->
     <string name="about_me_git">联系我：@skyofthinking</string>
     <string name="about_me_blog">博客：http://www.jiangyh.com</string>
+
+    <!-- Login -->
+    <string name="idtxthint">用户名</string>
+    <string name="pwdtxthint">密码</string>
+    <string name="loginbtntext">登录</string>
+    <string name="forgot_pwd">忘记密码？</string>
+    <string name="register">注册</string>
+    <string name="loading">正在登录</string>
 </resources>
