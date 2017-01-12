@@ -1,5 +1,4 @@
 include ':app', ':leancloud'
 include ':sample'
 include ':rapid'
-include ':third'
 include ':gankio'
