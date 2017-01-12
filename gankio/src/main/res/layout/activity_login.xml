@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/grey_200"
@@ -43,12 +44,13 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="10"
-                    android:hint="@string/idtxthint"
+                    android:hint="@string/login_userid_hint"
                     android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:textColorHint="#999999"
-                    android:textSize="18sp">
+                    android:textSize="@dimen/textSize16"
+                    tools:text="用户名">
 
                     <requestFocus/>
                 </EditText>
@@ -59,27 +61,28 @@
                     android:layout_height="32dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+                    android:background="@drawable/ic_keyboard_arrow_down_grey_24dp"/>
             </LinearLayout>
 
             <!-- 横线  -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/grey_100"/>
+                android:background="@color/grey_300"/>
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@null"
-                android:hint="@string/pwdtxthint"
+                android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:paddingRight="0dp"
                 android:textColorHint="#999999"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/textSize16"
+                tools:text="密码"/>
         </LinearLayout>
 
         <Button
@@ -88,7 +91,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/selector_common_btn"
-            android:text="@string/loginbtntext"
+            android:text="@string/login_btn_txt"
             android:textColor="#FFFFFF"
             android:textSize="19sp"/>
     </LinearLayout>
@@ -111,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="16dp"
-            android:text="@string/forgot_pwd"
+            android:text="@string/login_forgot_password"
             android:textColor="#0079FF"
             android:textSize="18sp"/>
 
@@ -121,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:text="@string/register"
+            android:text="@string/login_register"
             android:textColor="#0079FF"
             android:textSize="18sp"/>
     </RelativeLayout>

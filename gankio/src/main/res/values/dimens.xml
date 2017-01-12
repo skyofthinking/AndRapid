@@ -7,7 +7,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="loginingdlg_height">42dp</dimen>
-    <dimen name="loginingdlg_lr_margin">10dp</dimen>
-    <dimen name="loginingdlg_top_margin">20dp</dimen>
+    <dimen name="logining_dialog_height">42dp</dimen>
+    <dimen name="logining_dialog_lr_margin">10dp</dimen>
+    <dimen name="logining_dialog_top_margin">20dp</dimen>
 </resources>

@@ -21,7 +21,7 @@
         <item name="android:indeterminateDrawable">@drawable/progressbar</item>
     </style>
 
-    <style name="loginingDlg" parent="@android:style/Theme.Dialog">
+    <style name="dialog_logining" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <!-- 设置窗口浮动 -->
         <item name="android:windowFrame">@null</item>
