@@ -7,8 +7,13 @@
 ## Usage
 
 ## Todo
+- 第三方登录和分享
+- 登录和注册界面
+- 阅读收藏
 
 ## Thanks
+- [Mob官网](http://www.mob.com/)
+- [LeanCloud](https://leancloud.cn/)
 
 ## License
 
