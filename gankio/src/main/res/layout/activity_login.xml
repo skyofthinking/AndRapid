@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -8,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_launcher"
-        android:layout_width="@dimen/width128"
-        android:layout_height="@dimen/height128"
+        android:layout_width="@dimen/width96"
+        android:layout_height="@dimen/height96"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin64"
         android:src="@mipmap/ic_launcher"/>
@@ -40,7 +41,7 @@
                 <EditText
                     android:id="@+id/et_userid"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="@dimen/height48"
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="10"
@@ -67,13 +68,13 @@
             <!-- 横线  -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="1dp"
                 android:background="@color/grey_300"/>
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/height48"
                 android:background="@null"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
@@ -88,12 +89,69 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/height40"
             android:layout_marginTop="20dp"
             android:background="@drawable/selector_common_btn"
             android:text="@string/login_btn_txt"
             android:textColor="#FFFFFF"
             android:textSize="19sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login_aouth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin16"
+        android:layout_marginRight="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin32"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_qq"
+                android:layout_width="@dimen/width32"
+                android:layout_height="@dimen/height32"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_qq_24dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_wechat"
+                android:layout_width="@dimen/width32"
+                android:layout_height="@dimen/height32"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/ic_wechat_24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_sina"
+                android:layout_width="@dimen/width32"
+                android:layout_height="@dimen/height32"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/ic_sina_24dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
